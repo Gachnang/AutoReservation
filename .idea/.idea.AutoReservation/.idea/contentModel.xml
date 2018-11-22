@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\j-rau\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\j-rau\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_AutoReservation.-172447047.00" t="ExcludeRecursive" />
+    <e p="C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe" t="IncludeFlat">
+      <e p="AutoReservation.BusinessLayer" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="AutoManager.cs" t="Include" />
+        <e p="AutoReservation.BusinessLayer.csproj" t="IncludeRecursive" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Exceptions" t="Include">
+          <e p="OptimisticConcurrencyException.cs" t="Include" />
+        </e>
+        <e p="KundeManager.cs" t="Include" />
+        <e p="ManagerBase.cs" t="Include" />
+        <e p="Managers.cd" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net472" t="Include">
+              <e p="AutoReservation.BusinessLayer.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="ReservationManager.cs" t="Include" />
+      </e>
+      <e p="AutoReservation.BusinessLayer.Testing" t="IncludeRecursive">
+        <e p="AutoReservation.BusinessLayer.Testing.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="AutoReservation.Common" t="IncludeRecursive">
+        <e p="AutoReservation.Common.csproj" t="IncludeRecursive" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DataTransferObjects" t="Include">
+          <e p="AutoDto.cs" t="Include" />
+          <e p="AutoKlasse.cs" t="Include" />
+          <e p="Faults" t="Include" />
+          <e p="KundeDto.cs" t="Include" />
+          <e p="ReservationDto.cs" t="Include" />
+        </e>
+        <e p="Interfaces" t="Include">
+          <e p="IAutoReservationService.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net472" t="Include">
+              <e p="AutoReservation.Common.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="AutoReservation.Dal" t="IncludeRecursive">
+        <e p="AutoReservation.Dal.csproj" t="IncludeRecursive" />
+        <e p="AutoReservationContext.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Entities" t="Include">
+          <e p="Auto.cs" t="Include" />
+          <e p="Entities.cd" t="Include" />
+          <e p="Kunde.cs" t="Include" />
+          <e p="Reservation.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net472" t="Include">
+              <e p="AutoReservation.Dal.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="AutoReservation.Service.Wcf" t="IncludeRecursive">
+        <e p="AutoReservation.Service.Wcf.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="AutoReservation.Service.Wcf.Host" t="IncludeRecursive">
+        <e p="AutoReservation.Service.Wcf.Host.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="AutoReservation.Service.Wcf.Testing" t="IncludeRecursive">
+        <e p="AutoReservation.Service.Wcf.Testing.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="AutoReservation.sln" t="IncludeFlat" />
+      <e p="AutoReservation.TestEnvironment" t="IncludeRecursive">
+        <e p="AutoReservation.TestEnvironment.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Testing" t="Include" />
+    </e>
+  </component>
+</project>

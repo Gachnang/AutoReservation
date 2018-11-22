@@ -1,0 +1,36 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "C:\\Users\\j-rau\\HSR\\_Semester_3\\DotNet\\Miniprojekt\\Vorgabe\\AutoReservation.Service.Wcf\\AutoReservation.Service.Wcf.csproj",
+    "projectName": "AutoReservation.Service.Wcf",
+    "projectPath": "C:\\Users\\j-rau\\HSR\\_Semester_3\\DotNet\\Miniprojekt\\Vorgabe\\AutoReservation.Service.Wcf\\AutoReservation.Service.Wcf.csproj",
+    "outputPath": "C:\\Users\\j-rau\\HSR\\_Semester_3\\DotNet\\Miniprojekt\\Vorgabe\\AutoReservation.Service.Wcf\\obj\\",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "net472"
+    ],
+    "frameworks": {
+      "net472": {
+        "projectReferences": {
+          "C:\\Users\\j-rau\\HSR\\_Semester_3\\DotNet\\Miniprojekt\\Vorgabe\\AutoReservation.BusinessLayer\\AutoReservation.BusinessLayer.csproj": {
+            "projectPath": "C:\\Users\\j-rau\\HSR\\_Semester_3\\DotNet\\Miniprojekt\\Vorgabe\\AutoReservation.BusinessLayer\\AutoReservation.BusinessLayer.csproj"
+          },
+          "C:\\Users\\j-rau\\HSR\\_Semester_3\\DotNet\\Miniprojekt\\Vorgabe\\AutoReservation.Common\\AutoReservation.Common.csproj": {
+            "projectPath": "C:\\Users\\j-rau\\HSR\\_Semester_3\\DotNet\\Miniprojekt\\Vorgabe\\AutoReservation.Common\\AutoReservation.Common.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "net472": {}
+  }
+}

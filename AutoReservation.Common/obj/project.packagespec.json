@@ -1,0 +1,29 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "C:\\Users\\j-rau\\HSR\\_Semester_3\\DotNet\\Miniprojekt\\Vorgabe\\AutoReservation.Common\\AutoReservation.Common.csproj",
+    "projectName": "AutoReservation.Common",
+    "projectPath": "C:\\Users\\j-rau\\HSR\\_Semester_3\\DotNet\\Miniprojekt\\Vorgabe\\AutoReservation.Common\\AutoReservation.Common.csproj",
+    "outputPath": "C:\\Users\\j-rau\\HSR\\_Semester_3\\DotNet\\Miniprojekt\\Vorgabe\\AutoReservation.Common\\obj\\",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "net472"
+    ],
+    "frameworks": {
+      "net472": {
+        "projectReferences": {}
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "net472": {}
+  }
+}

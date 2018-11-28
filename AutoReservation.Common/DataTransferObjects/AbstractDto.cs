@@ -1,12 +1,15 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using AutoReservation.Common.Extensions;
 
 namespace AutoReservation.Common.DataTransferObjects
 {
     /// <summary>
     /// The base of any Dto which provide <see cref="INotifyPropertyChanged"/>.
     /// </summary>
-    public abstract class AbstractDto : INotifyPropertyChanged {
+    public abstract class AbstractDto : INotifyPropertyChanged
+    {
+
         /// <summary>
         /// EventHandler for PropertyChanged.
         /// </summary>
@@ -16,6 +19,7 @@ namespace AutoReservation.Common.DataTransferObjects
         /// Calls observers when property changed.
         /// </summary>
         /// <param name="propertyName">Name of the changed property</param>
+        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -29,7 +33,7 @@ namespace AutoReservation.Common.DataTransferObjects
         /// <param name="propertyName">The name of the property.</param>
         /// <returns>True when property changed.</returns>
         protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null) {
-            if (storage.Equals(value)) {
+            if (Equals(storage,value)) {
                 return false;
             }
 

@@ -1,8 +1,0 @@
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.Common\bin\Debug\net472\AutoReservation.Common.dll
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.Common\bin\Debug\net472\AutoReservation.Common.pdb
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.Common\obj\Debug\net472\AutoReservation.Common.csprojAssemblyReference.cache
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.Common\obj\Debug\net472\AutoReservation.Common.csproj.CoreCompileInputs.cache
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.Common\obj\Debug\net472\AutoReservation.Common.AssemblyInfoInputs.cache
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.Common\obj\Debug\net472\AutoReservation.Common.AssemblyInfo.cs
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.Common\obj\Debug\net472\AutoReservation.Common.dll
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.Common\obj\Debug\net472\AutoReservation.Common.pdb

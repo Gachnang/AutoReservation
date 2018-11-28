@@ -1,4 +1,0 @@
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.TestEnvironment\obj\Debug\net472\AutoReservation.TestEnvironment.csprojAssemblyReference.cache
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.TestEnvironment\obj\Debug\net472\AutoReservation.TestEnvironment.csproj.CoreCompileInputs.cache
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.TestEnvironment\obj\Debug\net472\AutoReservation.TestEnvironment.AssemblyInfoInputs.cache
-C:\Users\j-rau\HSR\_Semester_3\DotNet\Miniprojekt\Vorgabe\AutoReservation.TestEnvironment\obj\Debug\net472\AutoReservation.TestEnvironment.AssemblyInfo.cs

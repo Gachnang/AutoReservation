@@ -5,7 +5,7 @@ using AutoReservation.Common.Interfaces;
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
-    public abstract class AutoDto : AbstractDto, IAuto
+    public class AutoDto : AbstractDto, IAuto
     {
         private int _id;
         [DataMember]
@@ -25,21 +25,8 @@ namespace AutoReservation.Common.DataTransferObjects
 
         public AutoKlasse AutoKlasse
         {
-            get
-            {
-                AutoKlasse ret = (AutoKlasse)Enum.ToObject(typeof(AutoKlasse), AutoKlasseId);
-                if (!Enum.IsDefined(typeof(AutoKlasse), ret))
-                {
-                    throw new InvalidOperationException(
-                        $"{AutoKlasseId} is not an valid value of the AutoKlasse enumeration.");
-                }
-
-                return ret;
-            }
-            set
-            {
-                AutoKlasseId = (int)value;
-            }
+            get => AutoKlasseId.ToAutoKlasse();
+            set => AutoKlasseId = value.ToInt();
         }
 
         private int _basisearif;

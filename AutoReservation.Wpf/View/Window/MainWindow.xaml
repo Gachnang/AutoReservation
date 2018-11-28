@@ -1,0 +1,24 @@
+﻿<Window x:Class="AutoReservation.Wpf.View.Window.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:window="clr-namespace:AutoReservation.Wpf.View.Window"
+        xmlns:model="clr-namespace:AutoReservation.Wpf.View.Window.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance model:MainViewModel, IsDesignTimeCreatable=True}">
+    <TabControl
+        Margin="2 0 0 0"
+        HorizontalAlignment="Stretch"
+        TabStripPlacement="Left"
+        VerticalAlignment="Stretch">
+        <TabItem Header="Overview">
+            <window:OverviewTap />
+        </TabItem>
+
+        <TabItem Header="Autos">
+            <window:AutoTab DataContext="{Binding Path=GadgetsTabModel}" />
+        </TabItem>
+    </TabControl>
+</Window>

@@ -1,19 +1,21 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using AutoReservation.Wpf.Model;
 
 namespace AutoReservation.Wpf.View.Window.ViewModel {
     public class MainViewModel : INotifyPropertyChanged {
-        public MainViewModel() {
-            GadgetsTabModel = new AutoTabModel(this);
+        public AutoReservationRepository Repository { get; private set; }
 
-            /*
-            Repository = GadgeothekRepository.GetInstance();
+        public MainViewModel() {
+            Repository = new AutoReservationRepository();
             Repository.PropertyChanged += (o, e) => { this.OnPropertyChanged("Repository");};
-            Repository.Open();*/
+
+            // todo Why is this not working?
+            AutoTabModel = new AutoTabModel(this);
         }
         // public GadgeothekRepository Repository { get; private set; }
 
-        public AutoTabModel GadgetsTabModel { get; }
+        public AutoTabModel AutoTabModel { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

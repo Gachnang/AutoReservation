@@ -12,15 +12,15 @@
         VerticalAlignment="Stretch"
         HorizontalAlignment="Stretch"
         d:DesignHeight="800" d:DesignWidth="1200">
-        <ListBox x:Name="Selector" ItemsSource="{Binding Gadgets, UpdateSourceTrigger=PropertyChanged}"
-                 SelectedItem="{Binding Path=SelectedGadget, Mode=TwoWay}" MinWidth="140">
+        <ListBox x:Name="Selector" ItemsSource="{Binding Autos, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay}" MinWidth="140">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Path=InventoryNumber, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Text="{Binding Path=Manufacturer, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Text="{Binding Path=Condition, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{Binding Path=Id, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{Binding Path=Marke, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{Binding Path=Basistarif, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{Binding Path=Tagestarif, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -28,21 +28,27 @@
         <StackPanel Margin="8">
             <watermarkTextBox:WatermarkTextBox
                 Margin="10"
-                WatermarkContent="InventoryNumber"
-                x:Name="WtbInventoryNumber" IsReadOnly="True"
-                Text="{Binding SelectedGadget.InventoryNumber, UpdateSourceTrigger=PropertyChanged}" />
+                WatermarkContent="Identification"
+                x:Name="WtbId" IsReadOnly="True"
+                Text="{Binding SelectedAuto.Id, UpdateSourceTrigger=PropertyChanged}" />
 
             <watermarkTextBox:WatermarkTextBox
                 Margin="10"
-                WatermarkContent="Name"
-                x:Name="WtbName"
-                Text="{Binding SelectedGadget.Name, UpdateSourceTrigger=PropertyChanged}" />
+                WatermarkContent="Marke"
+                x:Name="WtbMarke"
+                Text="{Binding SelectedAuto.Marke, UpdateSourceTrigger=PropertyChanged}" />
 
             <watermarkTextBox:WatermarkTextBox
                 Margin="10"
-                WatermarkContent="Manufacturer"
-                x:Name="WtbManufacturer"
-                Text="{Binding SelectedGadget.Manufacturer, UpdateSourceTrigger=PropertyChanged}" />
+                WatermarkContent="Basistarif"
+                x:Name="WtbBasistarif"
+                Text="{Binding SelectedAuto.Basistarif, UpdateSourceTrigger=PropertyChanged}" />
+
+            <watermarkTextBox:WatermarkTextBox
+                Margin="10"
+                WatermarkContent="Tagestarif"
+                x:Name="WtbTagestarif"
+                Text="{Binding SelectedAuto.Tagestarif, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button Content="Save" x:Name="BtnSave" Click="BtnSave_OnClick"
                     Margin="10" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />

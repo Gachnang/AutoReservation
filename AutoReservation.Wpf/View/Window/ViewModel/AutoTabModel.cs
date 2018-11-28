@@ -1,43 +1,44 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using AutoReservation.Common.Interfaces;
 
 namespace AutoReservation.Wpf.View.Window.ViewModel {
     public class AutoTabModel : INotifyPropertyChanged {
-        private readonly MainViewModel _mainWindowModel;
-        /*public GadgeothekRepository Repository => _mainWindowModel.Repository;
-        public Collection<Gadget> Gadgets => Repository.Gadgets;
+        private readonly MainViewModel _mainViewModel;
+        public Collection<IAuto> Autos => _mainViewModel.Repository.Autos;
 
-        private Gadget _selectedGadget;
-        public Gadget SelectedGadget
+        private IAuto _selectedAuto;
+        public IAuto SelectedAuto
         {
-            get => _selectedGadget;
+            get => _selectedAuto;
             set
             {
-                _selectedGadget = value;
+                _selectedAuto = value;
                 OnPropertyChanged();
-            }
-        }*/
-
-        public AutoTabModel() {
-            if ((bool) DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue) {
-                _mainWindowModel = new MainViewModel();
-            } else {
-                throw new ArgumentException(
-                    "MainWindowModel is needed to inject repository.\n" +
-                    "(It is allowed to be null to show data in designTime)");
             }
         }
 
-        public AutoTabModel(MainViewModel mainWindowModel) {
-            _mainWindowModel = mainWindowModel;
+        public AutoTabModel() {
+            if ((bool) DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue) {
+                _mainViewModel = new MainViewModel();
+            } else {
+                throw new ArgumentException(
+                    "MainViewModel is needed to inject repository.\n" +
+                    "(It is only allowed to be null to show data in designTime)");
+            }
+        }
+
+        public AutoTabModel(MainViewModel mainViewModel) {
+            _mainViewModel = mainViewModel;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void Save() {
-            // Repository.SetGadget(SelectedGadget);
+            // Repository.SetAuto(SelectedAuto);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {

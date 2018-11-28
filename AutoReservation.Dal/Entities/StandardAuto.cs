@@ -5,13 +5,13 @@ namespace AutoReservation.Dal.Entities
 {
     public class StandardAuto : Auto
     {
-        public AutoKlasse AutoKlasse
+        public new AutoKlasse AutoKlasse
         {
             get => AutoKlasse.Standard;
             set => throw new AccessViolationException("Can not set AutoKlasse!");
         }
 
-        public int AutoKlasseId
+        public new int AutoKlasseId
         {
             get => AutoKlasse.Standard.ToInt();
             set => throw new AccessViolationException("Can not set AutoKlasseId!");

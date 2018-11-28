@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AutoReservation.Common.Interfaces;
@@ -41,5 +42,7 @@ namespace AutoReservation.Dal.Entities
 
         [Column("RowVersion", Order = 5)] [Timestamp]
         public byte[] RowVersion { get; set; }
+
+        public ICollection<Reservation> Reservationen { get; } = new List<Reservation>();
     }
 }

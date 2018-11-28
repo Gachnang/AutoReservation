@@ -9,6 +9,8 @@ namespace AutoReservation.Common.Interfaces
 {
     public interface IAuto
     {
+        // TODO Tarife sind Ganzzahlen (Integer). Wird in Rappen gemessen? Ansonsten eher "decimal" benutzen.
+ 
         int Id { get; set; }
         string Marke { get; set; }
         int Tagestarif { get; set; }

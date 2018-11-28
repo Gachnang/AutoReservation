@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using AutoReservation.Common.Interfaces;
 
 namespace AutoReservation.Common.DataTransferObjects
@@ -29,7 +30,10 @@ namespace AutoReservation.Common.DataTransferObjects
 
         public IAuto Auto {
             get => _auto;
-            set => SetProperty(ref _auto, value);
+            set {
+                Debug.Assert(value is AutoDto);
+                SetProperty(ref _auto, value);
+            }
         }
 
         public int KundeId {
@@ -39,7 +43,10 @@ namespace AutoReservation.Common.DataTransferObjects
 
         public IKunde Kunde {
             get => _kunde;
-            set => SetProperty(ref _kunde, value);
+            set {
+                Debug.Assert(value is KundeDto);
+                SetProperty(ref _kunde, value);
+            }
         }
 
         public DateTime Von {

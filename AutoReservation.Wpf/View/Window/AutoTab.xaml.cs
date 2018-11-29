@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using AutoReservation.Wpf.View.Window.ViewModel;
 
 namespace AutoReservation.Wpf.View.Window {
@@ -15,6 +16,10 @@ namespace AutoReservation.Wpf.View.Window {
 
         private void BtnSave_OnClick(object sender, RoutedEventArgs e) {
             Model.Save();
+        }
+
+        private void Wtb_OnPreviewTextInput(object sender, TextCompositionEventArgs e) {
+            e.Handled = !int.TryParse(((TextBox) sender).Text + e.Text, out int i);
         }
     }
 }

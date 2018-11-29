@@ -18,7 +18,7 @@
         </TabItem>
 
         <TabItem Header="Autos">
-            <window:AutoTab DataContext="{Binding Path=GadgetsTabModel}" />
+            <window:AutoTab DataContext="{Binding Path=AutoTabModel, UpdateSourceTrigger=PropertyChanged}" />
         </TabItem>
     </TabControl>
 </Window>

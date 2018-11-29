@@ -13,7 +13,7 @@
         HorizontalAlignment="Stretch"
         d:DesignHeight="800" d:DesignWidth="1200">
         <ListBox x:Name="Selector" ItemsSource="{Binding Autos, UpdateSourceTrigger=PropertyChanged}"
-                 SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay}" MinWidth="140">
+                 SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="140">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -42,13 +42,15 @@
                 Margin="10"
                 WatermarkContent="Basistarif"
                 x:Name="WtbBasistarif"
-                Text="{Binding SelectedAuto.Basistarif, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding SelectedAuto.Basistarif, UpdateSourceTrigger=PropertyChanged}" 
+                PreviewTextInput="Wtb_OnPreviewTextInput"/>
 
             <watermarkTextBox:WatermarkTextBox
                 Margin="10"
                 WatermarkContent="Tagestarif"
                 x:Name="WtbTagestarif"
-                Text="{Binding SelectedAuto.Tagestarif, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding SelectedAuto.Tagestarif, UpdateSourceTrigger=PropertyChanged}"
+                PreviewTextInput="Wtb_OnPreviewTextInput" />
 
             <Button Content="Save" x:Name="BtnSave" Click="BtnSave_OnClick"
                     Margin="10" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />

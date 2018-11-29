@@ -62,7 +62,6 @@
     </Compile>
     <Compile Include="Model\AutoReservationRepository.cs" />
     <Compile Include="View\Control\Animation\BrushAnimation.cs" />
-    <Compile Include="View\Control\GridViewSort\GridViewSort.cs" />
     <Compile Include="View\Control\ListViewSorter\ListViewSorter.xaml.cs">
       <DependentUpon>ListViewSorter.xaml</DependentUpon>
     </Compile>

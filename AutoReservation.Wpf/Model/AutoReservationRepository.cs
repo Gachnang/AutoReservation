@@ -22,7 +22,7 @@ namespace AutoReservation.Wpf.Model {
                 serverUrl = DefaultServerUrl;
             }
 
-            // todo Real connection
+            // TODO: Real connection
             _autos = new ObservableRangeCollection<IAuto>(new List<IAuto>() {
                 new AutoDto() {
                     Id = 0,

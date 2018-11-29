@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:watermarkTextBox="clr-namespace:AutoReservation.Wpf.View.Control.WatermarkTextBox"
              xmlns:viewModel="clr-namespace:AutoReservation.Wpf.View.Window.ViewModel"
+             xmlns:listViewSorter="clr-namespace:AutoReservation.Wpf.View.Control.ListViewSorter"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModel:AutoTabModel, IsDesignTimeCreatable=True}">
@@ -12,19 +13,22 @@
         VerticalAlignment="Stretch"
         HorizontalAlignment="Stretch"
         d:DesignHeight="800" d:DesignWidth="1200">
-        <ListBox x:Name="Selector" ItemsSource="{Binding Autos, UpdateSourceTrigger=PropertyChanged}"
+        <listViewSorter:ListViewSorter x:Name="Selector" ItemsSource="{Binding Autos, UpdateSourceTrigger=PropertyChanged}"
+                  IsSynchronizedWithCurrentItem="True"
                  SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="140">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=Id, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Text="{Binding Path=Marke, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Text="{Binding Path=Basistarif, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Text="{Binding Path=Tagestarif, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            <ListView.View>
+                <GridView AllowsColumnReorder="True">
+                    <GridView.Columns>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                        <GridViewColumn Header="Marke" DisplayMemberBinding="{Binding Marke}"/>
+                        <GridViewColumn Header="AutoKlasse" DisplayMemberBinding="{Binding AutoKlasse}"/>
+                        <GridViewColumn Header="Basistarif" DisplayMemberBinding="{Binding Basistarif}"/>
+                        <GridViewColumn Header="Tagestarif" DisplayMemberBinding="{Binding Tagestarif}"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </listViewSorter:ListViewSorter>
+
         <StackPanel Margin="8">
             <watermarkTextBox:WatermarkTextBox
                 Margin="10"

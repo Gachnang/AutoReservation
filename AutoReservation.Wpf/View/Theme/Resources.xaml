@@ -67,6 +67,8 @@
     <Geometry x:Key="MinimizeIcon">M0,0 L10,0 L10,2 L0,2 z</Geometry>
     <Geometry x:Key="RestoreIcon">M1,5 L1,9 L7,9 L7,5 z M3,2 L3,3 L8,3 L8,6 L9,6 L9,2 z M2,0 L10,0 L10,7 L8,7 L8,10 L0,10 L0,3 L2,3 z</Geometry>
     <Geometry x:Key="MaximizeIcon">M0,0 L10,0 10,10 0,10 z M1,3 L9,3 9,9 1,9 z</Geometry>
+    <Geometry x:Key="ArrowUp">M 5,5 15,5 10,0 5,5</Geometry>
+    <Geometry x:Key="ArrowDown">M 5,0 10,5 15,0 5,0</Geometry>
 </ResourceDictionary>
 
 <!--

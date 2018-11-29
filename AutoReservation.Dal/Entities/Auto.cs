@@ -7,18 +7,18 @@ using AutoReservation.Common.DataTransferObjects;
 
 namespace AutoReservation.Dal.Entities
 {
-    [Table("Auto", Schema = "dal")]
+    [Table("Car", Schema = "dal")]
     public class Auto : IAuto {
         [Column("Id", Order = 0)] [Required] [Key]
         public int Id { get ; set; }
         
-        [Column("Marke", Order = 1)] [MaxLength(20)] [Required]
+        [Column("Make", Order = 1)] [MaxLength(20)] [Required]
         public string Marke { get; set; }
 
-        [Column("Tagestarif", Order = 2)] [Required]
+        [Column("DailyRate", Order = 2)] [Required]
         public int Tagestarif { get; set; }
 
-        [Column("AutoKlasseId", Order = 3)] [Required]
+        [Column("CarClassId", Order = 3)] [Required]
         public int AutoKlasseId { get; set; }
 
         [NotMapped]
@@ -37,7 +37,7 @@ namespace AutoReservation.Dal.Entities
             }
         }
 
-        [Column("Basistarif", Order = 4)]
+        [Column("BasicRate", Order = 4)]
         public int Basistarif { get; set; }
 
         [Column("RowVersion", Order = 5)] [Timestamp]

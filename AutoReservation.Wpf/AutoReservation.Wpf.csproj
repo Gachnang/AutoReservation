@@ -62,6 +62,10 @@
     </Compile>
     <Compile Include="Model\AutoReservationRepository.cs" />
     <Compile Include="View\Control\Animation\BrushAnimation.cs" />
+    <Compile Include="View\Control\GridViewSort\GridViewSort.cs" />
+    <Compile Include="View\Control\ListViewSorter\ListViewSorter.xaml.cs">
+      <DependentUpon>ListViewSorter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Control\Shadow\Shadow.cs" />
     <Compile Include="View\Control\Shadow\ShadowDepth.cs" />
     <Compile Include="View\Control\WatermarkTextBox\WatermarkBehavior.cs" />
@@ -110,6 +114,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\Control\ListViewSorter\ListViewSorter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Control\Shadow\Shadows.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -119,6 +127,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Theme\Resources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Theme\System.Windows.ListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

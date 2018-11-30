@@ -19,7 +19,7 @@
                 x:Name="Selector" 
                 ItemsSource="{Binding Autos, UpdateSourceTrigger=PropertyChanged}"
                 IsSynchronizedWithCurrentItem="True"
-                SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="190">
+                SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <gridViewSorter:GridViewSorter.Columns>
                 <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
                 <GridViewColumn Header="Marke" DisplayMemberBinding="{Binding Marke}"/>

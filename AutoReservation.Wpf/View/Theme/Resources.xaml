@@ -41,6 +41,11 @@
     <SolidColorBrush x:Key="PrimaryHoverBrush" Color="{StaticResource PrimaryHoverColor}" />
     <SolidColorBrush x:Key="PrimaryPressedBrush" Color="{StaticResource PrimaryPressedColor}" />
 
+    <SolidColorBrush x:Key="AccentNormalBrush" Color="{StaticResource AccentNormalColor}" />
+    <SolidColorBrush x:Key="AccentFocusBrush" Color="{StaticResource AccentFocusColor}" />
+    <SolidColorBrush x:Key="AccentHoverBrush" Color="{StaticResource AccentHoverColor}" />
+    <SolidColorBrush x:Key="AccentPressedBrush" Color="{StaticResource AccentPressedColor}" />
+
     <SolidColorBrush x:Key="RippleBrush" Color="{StaticResource RippleColor}" />
     <SolidColorBrush x:Key="InvalidBrush" Color="{StaticResource InvalidColor}" />
     <SolidColorBrush x:Key="DisabledBrush" Color="{StaticResource DisabledColor}" />

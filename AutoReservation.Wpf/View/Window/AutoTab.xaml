@@ -19,12 +19,14 @@
                 x:Name="Selector" 
                 ItemsSource="{Binding Autos, UpdateSourceTrigger=PropertyChanged}"
                 IsSynchronizedWithCurrentItem="True"
-                SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
-            <GridViewColumn Header="Marke" DisplayMemberBinding="{Binding Marke}"/>
-            <GridViewColumn Header="AutoKlasse" DisplayMemberBinding="{Binding AutoKlasse}"/>
-            <GridViewColumn Header="Basistarif" DisplayMemberBinding="{Binding Basistarif}"/>
-            <GridViewColumn Header="Tagestarif" DisplayMemberBinding="{Binding Tagestarif}"/>
+                SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="190">
+            <gridViewSorter:GridViewSorter.Columns>
+                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                <GridViewColumn Header="Marke" DisplayMemberBinding="{Binding Marke}"/>
+                <GridViewColumn Header="AutoKlasse" DisplayMemberBinding="{Binding AutoKlasse}"/>
+                <GridViewColumn Header="Basistarif" DisplayMemberBinding="{Binding Basistarif}"/>
+                <GridViewColumn Header="Tagestarif" DisplayMemberBinding="{Binding Tagestarif}"/>
+            </gridViewSorter:GridViewSorter.Columns>
         </gridViewSorter:GridViewSorter>
 
         <StackPanel Margin="8">

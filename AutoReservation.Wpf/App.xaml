@@ -8,6 +8,7 @@
                 <ResourceDictionary Source="/View/Theme/Resources.xaml" />
                 <ResourceDictionary Source="/View/Theme/System.Windows.Control.xaml" />
                 <ResourceDictionary Source="/View/Theme/System.Windows.xaml" />
+                <ResourceDictionary Source="/View/Control/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

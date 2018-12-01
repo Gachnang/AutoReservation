@@ -17,9 +17,4 @@
         <Setter Property="theme:ThemeProperties.ShadowDepth" Value="Depth0" />
         <Setter Property="theme:ThemeProperties.RippleBrush" Value="{StaticResource RippleBrush}" />
     </Style>
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/View/Control/Shadow/Shadows.xaml" />
-        <ResourceDictionary Source="/View/Control/WatermarkTextBox/WatermarkTextBox.xaml" />
-    </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

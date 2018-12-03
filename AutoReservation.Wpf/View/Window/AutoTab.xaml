@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:watermarkTextBox="clr-namespace:AutoReservation.Wpf.View.Control.WatermarkTextBox"
              xmlns:viewModel="clr-namespace:AutoReservation.Wpf.View.Window.ViewModel"
-             xmlns:listViewSorter="clr-namespace:AutoReservation.Wpf.View.Control.ListViewSorter"
              xmlns:gridViewSorter="clr-namespace:AutoReservation.Wpf.View.Control.GridViewSorter"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="800"
@@ -55,6 +54,15 @@
                 x:Name="WtbTagestarif"
                 Text="{Binding SelectedAuto.Tagestarif, UpdateSourceTrigger=PropertyChanged}"
                 PreviewTextInput="Wtb_OnPreviewTextInput" />
+
+            <ToggleButton Content="Toggle"
+                          Margin="10"></ToggleButton>
+
+            <ComboBox Margin="10" SelectedValue="{Binding SelectedAuto.AutoKlasse}">
+                <ComboBoxItem Content="Standard"></ComboBoxItem>
+                <ComboBoxItem Content="Mittelklasse"></ComboBoxItem>
+                <ComboBoxItem Content="Luxusklasse"></ComboBoxItem>
+            </ComboBox>
 
             <Button Content="Save" x:Name="BtnSave" Click="BtnSave_OnClick"
                     Margin="10" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />

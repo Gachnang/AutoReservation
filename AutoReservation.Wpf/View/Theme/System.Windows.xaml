@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/View/Theme/System.Windows.Button.xaml" />
+        <ResourceDictionary Source="/View/Theme/System.Windows.ToggleButton.xaml" />
         <ResourceDictionary Source="/View/Theme/System.Windows.TextBox.xaml" />
+        <ResourceDictionary Source="/View/Theme/System.Windows.ComboBox.xaml" />
         <ResourceDictionary Source="/View/Theme/System.Windows.ListBox.xaml" />
         <ResourceDictionary Source="/View/Theme/System.Windows.GridView.xaml" />
     </ResourceDictionary.MergedDictionaries>

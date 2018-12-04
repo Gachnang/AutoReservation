@@ -3,6 +3,7 @@ using AutoReservation.Common.Interfaces;
 
 namespace AutoReservation.Common.DataTransferObjects
 {
+    // TODO: Double check if implemented right
     public class KundeDto : AbstractDto, IKunde
     {
         private int _id;

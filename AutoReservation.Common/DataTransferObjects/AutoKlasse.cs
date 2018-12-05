@@ -1,11 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace AutoReservation.Common.DataTransferObjects
 {
     public enum AutoKlasse
     {
+        [Description("Standard")]
         Standard,
+        [Description("Mittelklasse")]
         Mittelklasse,
+        [Description("Luxusklasse")]
         Luxusklasse
     }
 

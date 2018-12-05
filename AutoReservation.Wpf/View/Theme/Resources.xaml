@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="AutoReservation.Wpf.View.Theme"
-                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:common="clr-namespace:AutoReservation.Common.DataTransferObjects;assembly=AutoReservation.Common">
 
     <!-- More info: https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/resourcedictionary-and-xaml-resource-references -->
     <!-- Try to copy this style: https://docs.telerik.com/devtools/wpf/styling-and-appearance/themes-suite/common-styling-appearance-material-theme -->

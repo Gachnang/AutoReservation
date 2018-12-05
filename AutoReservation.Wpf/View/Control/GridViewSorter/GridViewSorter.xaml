@@ -40,7 +40,7 @@
         </Style>
     </ListView.ItemContainerStyle>
     <ListView.View>
-        <GridView x:Name="GridView" AllowsColumnReorder="True"  ColumnCollection="{Binding Path=Columns, ElementName=ListViewSorter}">
+        <GridView x:Name="GridView" AllowsColumnReorder="True">
             <GridView.ColumnHeaderContainerStyle>
                 <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource ControlStyle}">
                     <Setter Property="HorizontalContentAlignment" Value="Left" />

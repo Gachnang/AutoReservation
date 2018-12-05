@@ -24,10 +24,10 @@ namespace AutoReservation.Wpf.View.Control.GridViewSorter
         public GridViewColumnCollection Columns {
             get => this.GridView.Columns;
         }
-
-        static GridViewSorter() {
+        
+        static GridViewSorter() { 
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GridViewSorter),
-                new FrameworkPropertyMetadata(typeof(GridViewSorter)));
+                new FrameworkPropertyMetadata(typeof(GridViewSorter))); 
         }
 
         public GridViewSorter() : base()

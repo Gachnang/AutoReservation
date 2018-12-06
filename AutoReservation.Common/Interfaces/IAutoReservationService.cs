@@ -1,16 +1,44 @@
-﻿namespace AutoReservation.Common.Interfaces
+﻿using AutoReservation.Common.DataTransferObjects;
+using System.Collections.Generic;
+
+namespace AutoReservation.Common.Interfaces
 {
     public interface IAutoReservationService
     {
-        /*
-         * TODO: CRUD Operations
-         */
+        //CRUD Operations Car
+        List<AutoDto> GetAllCars();
 
-        /*
-         * TODO: Check if Car is availale
-         */
+        AutoDto GetCar(int id);
 
-        // TODO: Question for Thursday: No references to the DAL Layer => 
-        // Does that mean only no return types of that nature or never even in the methods no handling of DAL references?
+        void DeleteCar(AutoDto car);
+
+        void UpdateCar(AutoDto car);
+
+        void AddCar(AutoDto car);
+
+        // CRUD Operations Customer
+        List<KundeDto> GetAllCustomers();
+
+        KundeDto GetCustomer(int id);
+
+        void DeleteCustomer(KundeDto customer);
+
+        void UpdateCustomer(KundeDto customer);
+
+        void AddCustomer(KundeDto customer);
+
+        // CRUD Operations Reservation
+        List<ReservationDto> GetAllReservations();
+
+        ReservationDto GetReservation(int id);
+
+        void DeleteReservation(ReservationDto reservation);
+
+        void UpdateReservation(ReservationDto reservation);
+
+        void AddReservation(ReservationDto reservation);
+
+        //Check if Car is availale
+        bool CarAvaileable();
     }
 }

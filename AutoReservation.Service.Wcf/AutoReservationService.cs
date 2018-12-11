@@ -41,10 +41,11 @@ namespace AutoReservation.Service.Wcf
             manager.Insert(DtoConverter.ConvertToEntity(reservation));
         }
 
-        public bool CarAvaileable()
+        public bool CarAvailable()
         {
             WriteActualMethod();
-            // TODO: Check if car is availeable
+            // TODO: Check if car is available
+			// Do we even need that? (M)
             throw new NotImplementedException();
         }
 

@@ -38,7 +38,7 @@ namespace AutoReservation.Service.Wcf
         {
             WriteActualMethod();
             ReservationManager manager = new ReservationManager();
-            manager.Insert(DtoConverter.ConvertToEntity(reservation));
+            manager.InsertReservation(DtoConverter.ConvertToEntity(reservation));
         }
 
         public bool CarAvailable()
@@ -67,7 +67,7 @@ namespace AutoReservation.Service.Wcf
         {
             WriteActualMethod();
             ReservationManager manager = new ReservationManager();
-            manager.Delete(DtoConverter.ConvertToEntity(reservation));
+            manager.DeleteReservation(DtoConverter.ConvertToEntity(reservation));
         }
 
         public List<AutoDto> GetAllCars()
@@ -88,7 +88,7 @@ namespace AutoReservation.Service.Wcf
         {
             WriteActualMethod();
             ReservationManager manager = new ReservationManager();
-            return DtoConverter.ConvertToDtos(manager.GetAllReservations());
+            return DtoConverter.ConvertToDtos(manager.List);
         }
 
         public AutoDto GetCar(int id)
@@ -130,7 +130,7 @@ namespace AutoReservation.Service.Wcf
         {
             WriteActualMethod();
             ReservationManager manager = new ReservationManager();
-            manager.Update(DtoConverter.ConvertToEntity(reservation));
+            manager.UpdateReservation(DtoConverter.ConvertToEntity(reservation));
         }
     }
 }

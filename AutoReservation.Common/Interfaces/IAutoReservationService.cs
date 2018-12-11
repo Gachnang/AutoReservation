@@ -38,7 +38,7 @@ namespace AutoReservation.Common.Interfaces
 
         void AddReservation(ReservationDto reservation);
 
-        //Check if Car is availale
-        bool CarAvaileable();
+        //Check if Car is available
+        bool CarAvailable();
     }
 }

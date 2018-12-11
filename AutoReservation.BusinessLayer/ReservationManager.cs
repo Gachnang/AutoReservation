@@ -11,7 +11,6 @@ namespace AutoReservation.BusinessLayer
 	public class ReservationManager
 		: ManagerBase
 	{
-		// TODO: Check if Auto is available
 		public List<Reservation> List
 		{
 			get
@@ -36,25 +35,37 @@ namespace AutoReservation.BusinessLayer
 		{
 			using (AutoReservationContext context = new AutoReservationContext())
 			{
-				if (RangeCheck(reservation))
+				if (!InRangeCheck(reservation))
+				{
+					throw new InvalidDateRangeException("Error while inserting", reservation);
+				}
+				else if (!CarAvailable(context, reservation))
+				{
+					throw new AutoUnavailableException("Error while inserting", reservation);
+				}
+				else
 				{
 					context.Entry(reservation).State = EntityState.Added;
 					context.SaveChanges();
 				}
-				else
-				{
-					throw new InvalidDateRangeException("Error while inserting", reservation);
-				}
 			}
 		}
 
+
+
 		public void UpdateReservation(Reservation reservation)
 		{
-			//TODO RangeCheck
 			using (AutoReservationContext context = new AutoReservationContext())
 			{
-
-				if (RangeCheck(reservation))
+				if (!InRangeCheck(reservation))
+				{
+					throw new InvalidDateRangeException("Error while inserting", reservation);
+				}
+				else if (!CarAvailable(context, reservation))
+				{
+					throw new AutoUnavailableException("Error while inserting", reservation);
+				}
+				else
 				{
 					context.Entry(reservation).State = EntityState.Modified;
 					try
@@ -65,10 +76,6 @@ namespace AutoReservation.BusinessLayer
 					{
 						throw CreateOptimisticConcurrencyException(context, reservation);
 					}
-				}
-				else
-				{
-					throw new InvalidDateRangeException("Error while inserting", reservation);
 				}
 			}
 		}
@@ -90,9 +97,17 @@ namespace AutoReservation.BusinessLayer
 			}
 		}
 
-		public bool RangeCheck(Reservation reservation)
+		public bool InRangeCheck(Reservation reservation)
 		{
 			return (reservation.Von.AddHours(24).CompareTo(reservation.Bis) < 0);
+		}
+
+		private bool CarAvailable(AutoReservationContext context, Reservation reservation)
+		{
+			return context.Reservationen
+				.Where(res => res.AutoId == reservation.AutoId)
+				.Where(res => res.Von > reservation.Von && res.Von < reservation.Bis
+							|| res.Bis > reservation.Von && res.Bis < reservation.Bis).Count() == 0;
 		}
 	}
 }

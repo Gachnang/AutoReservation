@@ -4,6 +4,7 @@ using AutoReservation.Common.Interfaces;
 namespace AutoReservation.Common.DataTransferObjects
 {
     // TODO: Double check if implemented right
+	// Why lambda setter/getter? (M)
     public class KundeDto : AbstractDto, IKunde
     {
         private int _id;

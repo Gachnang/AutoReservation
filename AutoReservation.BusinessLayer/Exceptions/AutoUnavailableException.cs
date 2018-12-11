@@ -1,16 +1,19 @@
-using System;
 using AutoReservation.Dal.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AutoReservation.BusinessLayer.Exceptions
 {
-    public class AutoUnavailableException : Exception
-    {
-        public AutoUnavailableException(string message) : base(message) { }
-        public AutoUnavailableException(string message, Auto AutoUnavailable) : base(message)
-        {
-            this.AutoUnavailable = AutoUnavailable;
-        }
-
-        public Auto AutoUnavailable { get; set; }
-    }
+	class AutoUnavailableException : Exception
+	{
+		public AutoUnavailableException(string message) : base(message) { }
+		public AutoUnavailableException(string message, Reservation faultyReservation) : base(message)
+		{
+			this.faultyReservation = faultyReservation;
+		}
+		public Reservation faultyReservation { get; set; }
+	}
 }

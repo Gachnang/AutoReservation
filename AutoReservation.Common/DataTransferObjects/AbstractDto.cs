@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using AutoReservation.Common.Extensions;
 
 namespace AutoReservation.Common.DataTransferObjects
@@ -7,6 +9,7 @@ namespace AutoReservation.Common.DataTransferObjects
     /// <summary>
     /// The base of any Dto which provide <see cref="INotifyPropertyChanged"/>.
     /// </summary>
+    [Serializable]
     public abstract class AbstractDto : INotifyPropertyChanged
     {
 

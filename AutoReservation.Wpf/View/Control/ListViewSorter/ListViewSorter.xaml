@@ -1,28 +1,28 @@
 ﻿<local:ListViewSorterBase x:Class="AutoReservation.Wpf.View.Control.ListViewSorter.ListViewSorter"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:AutoReservation.Wpf.View.Control.ListViewSorter"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-          GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                          xmlns:local="clr-namespace:AutoReservation.Wpf.View.Control.ListViewSorter"
+                          mc:Ignorable="d"
+                          d:DesignHeight="450" d:DesignWidth="800"
+                          GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
     <ListView.Resources>
         <DataTemplate x:Key="ArrowUp">
             <DockPanel>
-                <TextBlock HorizontalAlignment="Center" 
+                <TextBlock HorizontalAlignment="Center"
                            Text="{Binding}" />
-                <Path VerticalAlignment="Center" 
-                      Fill="Black" 
+                <Path VerticalAlignment="Center"
+                      Fill="Black"
                       Data="{StaticResource ArrowUp}" />
             </DockPanel>
         </DataTemplate>
         <DataTemplate x:Key="ArrowDown">
             <DockPanel>
-                <TextBlock HorizontalAlignment="Center" 
+                <TextBlock HorizontalAlignment="Center"
                            Text="{Binding}" />
-                <Path VerticalAlignment="Center" 
-                      Fill="Black" 
+                <Path VerticalAlignment="Center"
+                      Fill="Black"
                       Data="{StaticResource ArrowDown}" />
             </DockPanel>
         </DataTemplate>

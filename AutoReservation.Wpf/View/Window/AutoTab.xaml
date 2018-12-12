@@ -16,17 +16,17 @@
         HorizontalAlignment="Stretch"
         d:DesignHeight="800" d:DesignWidth="1200">
 
-        <gridViewSorter:GridViewSorter  
-                x:Name="Selector" 
-                ItemsSource="{Binding Autos, UpdateSourceTrigger=PropertyChanged}"
-                IsSynchronizedWithCurrentItem="True"
-                SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <gridViewSorter:GridViewSorter
+            x:Name="Selector"
+            ItemsSource="{Binding Autos, UpdateSourceTrigger=PropertyChanged}"
+            IsSynchronizedWithCurrentItem="True"
+            SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <gridViewSorter:GridViewSorter.Columns>
-                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
-                <GridViewColumn Header="Marke" DisplayMemberBinding="{Binding Marke}"/>
-                <GridViewColumn Header="AutoKlasse" DisplayMemberBinding="{Binding AutoKlasse}"/>
-                <GridViewColumn Header="Basistarif" DisplayMemberBinding="{Binding Basistarif}"/>
-                <GridViewColumn Header="Tagestarif" DisplayMemberBinding="{Binding Tagestarif}"/>
+                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                <GridViewColumn Header="Marke" DisplayMemberBinding="{Binding Marke}" />
+                <GridViewColumn Header="AutoKlasse" DisplayMemberBinding="{Binding AutoKlasse}" />
+                <GridViewColumn Header="Basistarif" DisplayMemberBinding="{Binding Basistarif}" />
+                <GridViewColumn Header="Tagestarif" DisplayMemberBinding="{Binding Tagestarif}" />
             </gridViewSorter:GridViewSorter.Columns>
         </gridViewSorter:GridViewSorter>
 
@@ -47,8 +47,8 @@
                 Margin="10"
                 WatermarkContent="Basistarif"
                 x:Name="WtbBasistarif"
-                Text="{Binding SelectedAuto.Basistarif, UpdateSourceTrigger=PropertyChanged}" 
-                PreviewTextInput="Wtb_OnPreviewTextInput"/>
+                Text="{Binding SelectedAuto.Basistarif, UpdateSourceTrigger=PropertyChanged}"
+                PreviewTextInput="Wtb_OnPreviewTextInput" />
 
             <watermarkTextBox:WatermarkTextBox
                 Margin="10"
@@ -57,13 +57,10 @@
                 Text="{Binding SelectedAuto.Tagestarif, UpdateSourceTrigger=PropertyChanged}"
                 PreviewTextInput="Wtb_OnPreviewTextInput" />
 
-            <ToggleButton Content="Toggle"
-                          Margin="10"></ToggleButton>
-
             <ComboBox Margin="10"
-                      ItemsSource="{Binding Source={logic:Enumeration {x:Type common:AutoKlasse}}}" 
-                      DisplayMemberPath="Description" 
-                      SelectedValue="{Binding SelectedAuto.AutoKlasse}"  
+                      ItemsSource="{Binding Source={logic:Enumeration {x:Type common:AutoKlasse}}}"
+                      DisplayMemberPath="Description"
+                      SelectedValue="{Binding SelectedAuto.AutoKlasse}"
                       SelectedValuePath="Value"> <!--
                 <ComboBoxItem Content="Standard"></ComboBoxItem>
                 <ComboBoxItem Content="Mittelklasse"></ComboBoxItem>

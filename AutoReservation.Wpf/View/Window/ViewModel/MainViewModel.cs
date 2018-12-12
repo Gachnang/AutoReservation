@@ -5,16 +5,16 @@ using AutoReservation.Wpf.Model;
 
 namespace AutoReservation.Wpf.View.Window.ViewModel {
     public class MainViewModel : INotifyPropertyChanged {
-        public AutoReservationRepository Repository { get; private set; }
-        public AutoTabModel AutoTabModel { get; private set; }
-
         public MainViewModel() {
             Repository = new AutoReservationRepository();
-            Repository.PropertyChanged += (o, e) => { this.OnPropertyChanged($"Repository");};
+            Repository.PropertyChanged += (o, e) => { OnPropertyChanged("Repository"); };
 
             AutoTabModel = new AutoTabModel(this);
         }
-        
+
+        public AutoReservationRepository Repository { get; }
+        public AutoTabModel AutoTabModel { get; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

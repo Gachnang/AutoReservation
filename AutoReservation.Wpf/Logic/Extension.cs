@@ -25,20 +25,15 @@ namespace AutoReservation.Wpf.Logic {
         /// <param name="target"></param>
         /// <param name="source"></param>
         /// <param name="type"></param>
-        public static void Replace(this object target, object source, Type type)
-        {
-            if (target.GetType().IsSubclassOf(type) && source.GetType().IsSubclassOf(type))
-            {
+        public static void Replace(this object target, object source, Type type) {
+            if (target.GetType().IsSubclassOf(type) && source.GetType().IsSubclassOf(type)) {
                 PropertyInfo[] properties = type.GetProperties();
-                foreach (PropertyInfo propertyInfo in properties)
-                {
+                foreach (PropertyInfo propertyInfo in properties) {
                     propertyInfo.SetValue(target, propertyInfo.GetValue(source));
                 }
-            }
-            else
-            {
-                throw new ArgumentException("Target(\"" + target.GetType().Name + 
-                                            "\") or Source(\"" + source.GetType().Name + 
+            } else {
+                throw new ArgumentException("Target(\"" + target.GetType().Name +
+                                            "\") or Source(\"" + source.GetType().Name +
                                             "\") is not subclass of defined type (\"" + type.Name + "\").");
             }
         }

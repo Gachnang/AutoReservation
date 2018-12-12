@@ -213,7 +213,8 @@
                     </shadow:Shadow>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Background" TargetName="Border" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(local:ThemeProperties.CheckedBrush), Mode=OneWay}" />
+                            <Setter Property="Background" TargetName="Border"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(local:ThemeProperties.CheckedBrush), Mode=OneWay}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

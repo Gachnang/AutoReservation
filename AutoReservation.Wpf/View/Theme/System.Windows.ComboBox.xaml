@@ -130,8 +130,27 @@
                                 </ToggleButton.Content>
                             </ToggleButton>
 
-                            <ContentPresenter x:Name="ContentSite"
-                                              Grid.Column="0"
+
+                            <ToggleButton x:Name="ToggleButtonContent"
+                                          Grid.Column="0"
+                                          Focusable="True"
+                                          ClickMode="Press"
+                                          VerticalAlignment="Stretch"
+                                          HorizontalAlignment="Stretch"
+                                          HorizontalContentAlignment="Stretch"
+                                          Background="{TemplateBinding Background}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          BorderThickness="0"
+                                          Margin="{TemplateBinding BorderThickness}"
+                                          Padding="0"
+                                          theme:ThemeProperties.HoverBrush="Transparent"
+                                          theme:ThemeProperties.CheckedBrush="Transparent"
+                                          theme:ThemeProperties.FocusBrush="Transparent"
+                                          theme:ThemeProperties.PressedBrush="Transparent"
+                                          theme:ThemeProperties.RippleBrush="Transparent"
+                                          theme:ThemeProperties.ShadowDepth="Depth0"
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ContentPresenter x:Name="ContentSite"
                                               IsHitTestVisible="False"
                                               Margin="8 0"
                                               Content="{TemplateBinding SelectionBoxItem}"
@@ -139,6 +158,7 @@
                                               ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                               VerticalAlignment="Center"
                                               HorizontalAlignment="Stretch"/>
+                            </ToggleButton>
                             <TextBox x:Name="PART_EditableTextBox"
                                      Grid.Column="0"
                                      HorizontalAlignment="Stretch"

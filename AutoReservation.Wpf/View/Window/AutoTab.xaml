@@ -57,9 +57,6 @@
                 Text="{Binding SelectedAuto.Tagestarif, UpdateSourceTrigger=PropertyChanged}"
                 PreviewTextInput="Wtb_OnPreviewTextInput" />
 
-            <ToggleButton Content="Toggle"
-                          Margin="10" />
-
             <ComboBox Margin="10"
                       ItemsSource="{Binding Source={logic:Enumeration {x:Type common:AutoKlasse}}}"
                       DisplayMemberPath="Description"

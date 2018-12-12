@@ -11,13 +11,19 @@
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModel:AutoTabModel, IsDesignTimeCreatable=True}">
-    <DockPanel
+    <Grid
         VerticalAlignment="Stretch"
         HorizontalAlignment="Stretch"
         d:DesignHeight="800" d:DesignWidth="1200">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
         <gridViewSorter:GridViewSorter
             x:Name="Selector"
+            Grid.Column="0"
             ItemsSource="{Binding Autos, UpdateSourceTrigger=PropertyChanged}"
             IsSynchronizedWithCurrentItem="True"
             SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -30,45 +36,50 @@
             </gridViewSorter:GridViewSorter.Columns>
         </gridViewSorter:GridViewSorter>
 
-        <StackPanel Margin="8">
-            <watermarkTextBox:WatermarkTextBox
-                Margin="10"
-                WatermarkContent="Identification"
-                x:Name="WtbId" IsReadOnly="True"
-                Text="{Binding SelectedAuto.Id, UpdateSourceTrigger=PropertyChanged}" />
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
-            <watermarkTextBox:WatermarkTextBox
-                Margin="10"
-                WatermarkContent="Marke"
-                x:Name="WtbMarke"
-                Text="{Binding SelectedAuto.Marke, UpdateSourceTrigger=PropertyChanged}" />
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      Grid.Column="2">
+            <StackPanel Margin="8">
+                <watermarkTextBox:WatermarkTextBox
+                    Margin="10"
+                    WatermarkContent="Identification"
+                    x:Name="WtbId" IsReadOnly="True"
+                    Text="{Binding SelectedAuto.Id, UpdateSourceTrigger=PropertyChanged}" />
 
-            <watermarkTextBox:WatermarkTextBox
-                Margin="10"
-                WatermarkContent="Basistarif"
-                x:Name="WtbBasistarif"
-                Text="{Binding SelectedAuto.Basistarif, UpdateSourceTrigger=PropertyChanged}"
-                PreviewTextInput="Wtb_OnPreviewTextInput" />
+                <watermarkTextBox:WatermarkTextBox
+                    Margin="10"
+                    WatermarkContent="Marke"
+                    x:Name="WtbMarke"
+                    Text="{Binding SelectedAuto.Marke, UpdateSourceTrigger=PropertyChanged}" />
 
-            <watermarkTextBox:WatermarkTextBox
-                Margin="10"
-                WatermarkContent="Tagestarif"
-                x:Name="WtbTagestarif"
-                Text="{Binding SelectedAuto.Tagestarif, UpdateSourceTrigger=PropertyChanged}"
-                PreviewTextInput="Wtb_OnPreviewTextInput" />
+                <watermarkTextBox:WatermarkTextBox
+                    Margin="10"
+                    WatermarkContent="Basistarif"
+                    x:Name="WtbBasistarif"
+                    Text="{Binding SelectedAuto.Basistarif, UpdateSourceTrigger=PropertyChanged}"
+                    PreviewTextInput="Wtb_OnPreviewTextInput" />
 
-            <ComboBox Margin="10"
-                      ItemsSource="{Binding Source={logic:Enumeration {x:Type common:AutoKlasse}}}"
-                      DisplayMemberPath="Description"
-                      SelectedValue="{Binding SelectedAuto.AutoKlasse}"
-                      SelectedValuePath="Value"> <!--
-                <ComboBoxItem Content="Standard"></ComboBoxItem>
-                <ComboBoxItem Content="Mittelklasse"></ComboBoxItem>
-                <ComboBoxItem Content="Luxusklasse"></ComboBoxItem> -->
-            </ComboBox>
+                <watermarkTextBox:WatermarkTextBox
+                    Margin="10"
+                    WatermarkContent="Tagestarif"
+                    x:Name="WtbTagestarif"
+                    Text="{Binding SelectedAuto.Tagestarif, UpdateSourceTrigger=PropertyChanged}"
+                    PreviewTextInput="Wtb_OnPreviewTextInput" />
 
-            <Button Content="Save" x:Name="BtnSave" Click="BtnSave_OnClick"
-                    Margin="10" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />
-        </StackPanel>
-    </DockPanel>
+                <ComboBox Margin="10"
+                          ItemsSource="{Binding Source={logic:Enumeration {x:Type common:AutoKlasse}}}"
+                          DisplayMemberPath="Description"
+                          SelectedValue="{Binding SelectedAuto.AutoKlasse}"
+                          SelectedValuePath="Value"> <!--
+                    <ComboBoxItem Content="Standard"></ComboBoxItem>
+                    <ComboBoxItem Content="Mittelklasse"></ComboBoxItem>
+                    <ComboBoxItem Content="Luxusklasse"></ComboBoxItem> -->
+                </ComboBox>
+
+                <Button Content="Save" x:Name="BtnSave" Click="BtnSave_OnClick"
+                        Margin="10" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

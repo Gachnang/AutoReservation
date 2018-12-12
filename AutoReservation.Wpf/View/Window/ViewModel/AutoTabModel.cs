@@ -9,18 +9,8 @@ using AutoReservation.Common.Interfaces;
 namespace AutoReservation.Wpf.View.Window.ViewModel {
     public class AutoTabModel : INotifyPropertyChanged {
         private readonly MainViewModel _mainViewModel;
-        public Collection<IAuto> Autos => _mainViewModel.Repository?.Autos;
 
         private IAuto _selectedAuto;
-        public IAuto SelectedAuto
-        {
-            get => _selectedAuto;
-            set
-            {
-                _selectedAuto = value;
-                OnPropertyChanged();
-            }
-        }
 
         public AutoTabModel() {
             if ((bool) DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue) {
@@ -36,12 +26,22 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
             _mainViewModel = mainViewModel;
         }
 
+        public Collection<IAuto> Autos => _mainViewModel.Repository?.Autos;
+
+        public IAuto SelectedAuto {
+            get => _selectedAuto;
+            set {
+                _selectedAuto = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
 
         public void Save() {
             // Repository.SetAuto(SelectedAuto);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {

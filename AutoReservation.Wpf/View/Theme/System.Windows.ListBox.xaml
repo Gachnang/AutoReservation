@@ -8,48 +8,48 @@
         <Setter Property="Padding" Value="16 10 16 9" />
         <Setter Property="MinHeight" Value="36" />
         <Setter Property="UseLayoutRounding" Value="True" />
-        <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
-        <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Grid>
                         <Border x:Name="BorderVisual"
-				                BorderBrush="{TemplateBinding BorderBrush}"
-				                BorderThickness="{TemplateBinding BorderThickness}"
-				                Background="{TemplateBinding Background}"
-				                SnapsToDevicePixels="True" />
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True" />
                         <Border x:Name="FocusVisual"
                                 BorderBrush="{x:Null}"
-                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding theme:ThemeProperties.FocusBrush}"
-                                SnapsToDevicePixels="True" 
+                                SnapsToDevicePixels="True"
                                 Opacity="0" />
                         <Border x:Name="SelectedVisual"
                                 BorderBrush="{x:Null}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding theme:ThemeProperties.CheckedBrush}"
-                                SnapsToDevicePixels="True" 
+                                SnapsToDevicePixels="True"
                                 Opacity="0" />
                         <ContentControl x:Name="contentPresenter"
-                                            Margin="{TemplateBinding Padding}"
-                                            Foreground="{TemplateBinding Foreground}"
-                                            IsTabStop="False"
-                                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                                            Content="{TemplateBinding Content}"
-                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                            ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                            ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                            FocusVisualStyle="{x:Null}"/>
+                                        Margin="{TemplateBinding Padding}"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        IsTabStop="False"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Content="{TemplateBinding Content}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                        ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                        FocusVisualStyle="{x:Null}" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -60,14 +60,18 @@
                             <MultiTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Duration="{StaticResource Control_AnimationDuration}" From="0" To="1" Storyboard.TargetName="FocusVisual" Storyboard.TargetProperty="Opacity" />
+                                        <DoubleAnimation Duration="{StaticResource Control_AnimationDuration}" From="0"
+                                                         To="1" Storyboard.TargetName="FocusVisual"
+                                                         Storyboard.TargetProperty="Opacity" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </MultiTrigger.EnterActions>
                             <MultiTrigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Duration="{StaticResource Control_AnimationDuration}" From="1" To="0" Storyboard.TargetName="FocusVisual" Storyboard.TargetProperty="Opacity" />
+                                        <DoubleAnimation Duration="{StaticResource Control_AnimationDuration}" From="1"
+                                                         To="0" Storyboard.TargetName="FocusVisual"
+                                                         Storyboard.TargetProperty="Opacity" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </MultiTrigger.ExitActions>
@@ -75,26 +79,31 @@
 
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Foreground" Value="{StaticResource MarkerInvertedBrush}" />
-                            <Setter Property="theme:ThemeProperties.HoverBrush" Value="{StaticResource AccentNormalBrush}" />
+                            <Setter Property="theme:ThemeProperties.HoverBrush"
+                                    Value="{StaticResource AccentNormalBrush}" />
                         </Trigger>
 
-                        <Trigger  Property="IsSelected" Value="True">
+                        <Trigger Property="IsSelected" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Duration="{StaticResource Control_AnimationDuration}" From="0" To="1" Storyboard.TargetName="SelectedVisual" Storyboard.TargetProperty="Opacity" />
+                                        <DoubleAnimation Duration="{StaticResource Control_AnimationDuration}" From="0"
+                                                         To="1" Storyboard.TargetName="SelectedVisual"
+                                                         Storyboard.TargetProperty="Opacity" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Duration="{StaticResource Control_AnimationDuration}" From="1" To="0" Storyboard.TargetName="SelectedVisual" Storyboard.TargetProperty="Opacity" />
+                                        <DoubleAnimation Duration="{StaticResource Control_AnimationDuration}" From="1"
+                                                         To="0" Storyboard.TargetName="SelectedVisual"
+                                                         Storyboard.TargetProperty="Opacity" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
                         </Trigger>
-<!--
+                        <!--
                         <Trigger Property="IsPressed" Value="True" SourceName="Material">
                             <Setter Property="Foreground" Value="{StaticResource MarkerBrush}" />
                         </Trigger>
@@ -104,7 +113,8 @@
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="contentPresenter" Value="{StaticResource DisabledOpacity}" Property="Opacity" />
+                            <Setter TargetName="contentPresenter" Value="{StaticResource DisabledOpacity}"
+                                    Property="Opacity" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -120,14 +130,14 @@
         <Setter Property="Foreground" Value="{StaticResource MarkerBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="0" />
-        <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
-        <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Top" />
         <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
         <Setter Property="Template">
@@ -135,17 +145,17 @@
                 <ControlTemplate TargetType="ListBox">
                     <Grid>
                         <shadow:Shadow ShadowDepth="{TemplateBinding theme:ThemeProperties.ShadowDepth}"
-                                    Background="{TemplateBinding Background}"/>
+                                       Background="{TemplateBinding Background}" />
 
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}" >
+                                BorderThickness="{TemplateBinding BorderThickness}">
 
                             <ScrollViewer x:Name="ScrollViewer" Margin="0 8"
-									  BorderBrush="{x:Null}" BorderThickness="0"
-									  Background="{TemplateBinding Background}" 
-									  Padding="{TemplateBinding Padding}"   
-									  ScrollViewer.HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" 
-									  ScrollViewer.VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                          BorderBrush="{x:Null}" BorderThickness="0"
+                                          Background="{TemplateBinding Background}"
+                                          Padding="{TemplateBinding Padding}"
+                                          ScrollViewer.HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                          ScrollViewer.VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                                 <ItemsPresenter
                                     ClipToBounds="True" />
                             </ScrollViewer>

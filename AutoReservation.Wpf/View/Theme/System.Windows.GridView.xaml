@@ -3,17 +3,18 @@
                     xmlns:theme="clr-namespace:AutoReservation.Wpf.View.Theme"
                     xmlns:shadow="clr-namespace:AutoReservation.Wpf.View.Control.Shadow">
 
-    <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource ControlStyle}">
+    <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}"
+           BasedOn="{StaticResource ControlStyle}">
         <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="MinWidth" Value="32"/>
-        <Setter Property="Padding" Value="8 8 12 8"/>
+        <Setter Property="MinWidth" Value="32" />
+        <Setter Property="Padding" Value="8 8 12 8" />
     </Style>
 
     <Style x:Key="GridViewItemContainerStyle" TargetType="{x:Type ListViewItem}">
         <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="MinWidth" Value="32"/>
+        <Setter Property="MinWidth" Value="32" />
         <Setter Property="MinHeight" Value="32" />
-        <Setter Property="Padding" Value="8 8 12 8"/>
+        <Setter Property="Padding" Value="8 8 12 8" />
     </Style>
 
     <Style x:Key="GridViewColumnStyle" TargetType="{x:Type GridViewColumn}">
@@ -24,7 +25,7 @@
         <Setter Property="theme:ThemeProperties.ShadowDepth" Value="Depth0" />
         <Setter Property="theme:ThemeProperties.RippleBrush" Value="{StaticResource RippleBrush}" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
-        <Setter Property="HeaderContainerStyle" Value="{StaticResource GridViewColumnHeaderStyle}"/>
+        <Setter Property="HeaderContainerStyle" Value="{StaticResource GridViewColumnHeaderStyle}" />
     </Style>
 
     <Style x:Key="GridViewStyle" TargetType="{x:Type GridView}">
@@ -35,7 +36,7 @@
         <Setter Property="theme:ThemeProperties.ShadowDepth" Value="Depth1" />
         <Setter Property="theme:ThemeProperties.RippleBrush" Value="{StaticResource RippleBrush}" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
-        <Setter Property="ColumnHeaderContainerStyle" Value="{StaticResource GridViewColumnHeaderStyle}"/>
+        <Setter Property="ColumnHeaderContainerStyle" Value="{StaticResource GridViewColumnHeaderStyle}" />
     </Style>
 
     <!-- TODO Does not work, template has to be set on every GridView.. Why? -->

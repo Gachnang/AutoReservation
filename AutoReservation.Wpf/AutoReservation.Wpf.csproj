@@ -38,6 +38,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <HintPath>..\..\..\..\..\..\..\..\Windows\Microsoft.NET\Framework64\v4.0.30319\System.ServiceModel.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -201,6 +204,10 @@
     <ProjectReference Include="..\AutoReservation.Dal\AutoReservation.Dal.csproj">
       <Project>{ab98ac63-032f-4050-9755-1e2235e9f1dd}</Project>
       <Name>AutoReservation.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoReservation.Service.Wcf\AutoReservation.Service.Wcf.csproj">
+      <Project>{73f6e950-15a9-460d-993b-dfe469a9e286}</Project>
+      <Name>AutoReservation.Service.Wcf</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

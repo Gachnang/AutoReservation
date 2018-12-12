@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,45 +7,52 @@ using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Extensions;
 using AutoReservation.Common.Interfaces;
 using AutoReservation.Wpf.Logic;
+using AutoReservation.Service.Wcf;
+
+using System.ServiceModel;
+
 
 namespace AutoReservation.Wpf.Model {
+    public class ServiceTestRemoteFixture
+        : IDisposable
+    {
+        public ServiceTestRemoteFixture()
+        {
+            ServiceHost = new ServiceHost(typeof(AutoReservationService));
+            ServiceHost.Open();
+        }
+
+        public void Dispose()
+        {
+            if (ServiceHost.State != CommunicationState.Closed)
+            {
+                ServiceHost.Close();
+            }
+        }
+
+        public ServiceHost ServiceHost { get; }
+    }
+    
     public class AutoReservationRepository : INotifyPropertyChanged {
         private static string DefaultServerUrl = "http://localhost:8080";
 
-        private readonly ObservableRangeCollection<IAuto> _autos;
+        private readonly ObservableCollection<AutoDto> _autos;
+
+        private IAutoReservationService target;
 
         public AutoReservationRepository(string serverUrl = null) {
-            if (string.IsNullOrEmpty(serverUrl)) {
-                serverUrl = DefaultServerUrl;
-            }
 
+            if (target == null)
+            {
+                ChannelFactory<IAutoReservationService> channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
+                target = channelFactory.CreateChannel();
+            }
+            
             // TODO: Real connection
-            _autos = new ObservableRangeCollection<IAuto>(new List<IAuto> {
-                new AutoDto {
-                    Id = 0,
-                    AutoKlasse = AutoKlasse.Standard,
-                    Basistarif = 1,
-                    Marke = "VW",
-                    Tagestarif = 2
-                },
-                new AutoDto {
-                    Id = 1,
-                    AutoKlasse = AutoKlasse.Mittelklasse,
-                    Basistarif = 2,
-                    Marke = "Mercedes",
-                    Tagestarif = 3
-                },
-                new AutoDto {
-                    Id = 2,
-                    AutoKlasse = AutoKlasse.Luxusklasse,
-                    Basistarif = 3,
-                    Marke = "Smart",
-                    Tagestarif = 4
-                }
-            });
+            _autos = new ObservableCollection<AutoDto>(target.GetAllCars());
         }
 
-        public ObservableCollection<IAuto> Autos => _autos;
+        public ObservableCollection<AutoDto> Autos => _autos;
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -55,3 +63,4 @@ namespace AutoReservation.Wpf.Model {
         }
     }
 }
+

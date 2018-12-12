@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Extensions;
 using AutoReservation.Common.Interfaces;
 
@@ -26,7 +27,7 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
             _mainViewModel = mainViewModel;
         }
 
-        public Collection<IAuto> Autos => _mainViewModel.Repository?.Autos;
+        public Collection<AutoDto> Autos => _mainViewModel.Repository?.Autos;
 
         public IAuto SelectedAuto {
             get => _selectedAuto;

@@ -1,17 +1,17 @@
-﻿using AutoReservation.BusinessLayer;
+﻿using AutoReservation.BusinessLayer
 using AutoReservation.Common.DataTransferObjects;
+using AutoReservation.Common.DataTransferObjects.Faults;
 using AutoReservation.Common.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.ServiceModel;
 
 namespace AutoReservation.Service.Wcf
 {
     public class AutoReservationService : IAutoReservationService
     {
-        /*
-         * TODO: Converting of DTO Objects to DAL Objects and the other way around
-         */
 
         /*
          * TODO: Exception handling => catch known exceptions and pack it into faults
@@ -24,21 +24,93 @@ namespace AutoReservation.Service.Wcf
         {
             WriteActualMethod();
             AutoManager manager = new AutoManager();
-            manager.InsertAuto(DtoConverter.ConvertToEntity(car));
+            try
+            {
+                manager.InsertAuto(DtoConverter.ConvertToEntity(car));
+            }
+            catch(ArgumentException)
+            {
+                ConverterFault fault = new ConverterFault()
+                {
+                    Operation = "AddCar",
+                    ProblemType = "Car has non existing class type"
+                };
+                throw new FaultException<ConverterFault>(fault);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "AddCar",
+                    ProblemType = "Onother user updated the DB reload datas."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
+            catch (DbUpdateException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "AddCar",
+                    ProblemType = "Error while creating new car entry."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
         }
 
         public void AddCustomer(KundeDto customer)
         {
             WriteActualMethod();
             KundeManager manager = new KundeManager();
-            manager.Insert(DtoConverter.ConvertToEntity(customer));
+            try
+            {
+                manager.Insert(DtoConverter.ConvertToEntity(customer));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "AddCustomer",
+                    ProblemType = "Onother user updated the DB reload datas."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
+            catch (DbUpdateException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "AddCustomer",
+                    ProblemType = "Error while creating new customer entry."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
         }
 
         public void AddReservation(ReservationDto reservation)
         {
             WriteActualMethod();
             ReservationManager manager = new ReservationManager();
-            manager.InsertReservation(DtoConverter.ConvertToEntity(reservation));
+            try
+            {
+                manager.InsertReservation(DtoConverter.ConvertToEntity(reservation));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "AddReservation",
+                    ProblemType = "Onother user updated the DB reload datas."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
+            catch (DbUpdateException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "AddReservation",
+                    ProblemType = "Error while creating new reservation entry."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
         }
 
         public bool CarAvailable()
@@ -53,21 +125,85 @@ namespace AutoReservation.Service.Wcf
         {
             WriteActualMethod();
             AutoManager manager = new AutoManager();
-            manager.DeleteAuto(DtoConverter.ConvertToEntity(car));
+            try
+            {
+                manager.DeleteAuto(DtoConverter.ConvertToEntity(car));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "DeleteCar",
+                    ProblemType = "Onother user updated the DB reload datas."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
+            catch (DbUpdateException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "DeleteCar",
+                    ProblemType = "Error while deleting car entry."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
         }
 
         public void DeleteCustomer(KundeDto customer)
         {
             WriteActualMethod();
             KundeManager manager = new KundeManager();
-            manager.DeleteKunde(DtoConverter.ConvertToEntity(customer));
+            try
+            {
+                manager.DeleteKunde(DtoConverter.ConvertToEntity(customer));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "DeleteCustomer",
+                    ProblemType = "Onother user updated the DB reload datas."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
+            catch (DbUpdateException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "DeleteCustomer",
+                    ProblemType = "Error while deleting customer entry."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
         }
 
         public void DeleteReservation(ReservationDto reservation)
         {
             WriteActualMethod();
             ReservationManager manager = new ReservationManager();
-            manager.DeleteReservation(DtoConverter.ConvertToEntity(reservation));
+            try
+            {
+                manager.DeleteReservation(DtoConverter.ConvertToEntity(reservation));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "DeleteReservation",
+                    ProblemType = "Onother user updated the DB reload datas."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
+            catch (DbUpdateException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "DeleteReservation",
+                    ProblemType = "Error while deleting reservation entry."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
+            
         }
 
         public List<AutoDto> GetAllCars()
@@ -116,21 +252,84 @@ namespace AutoReservation.Service.Wcf
         {
             WriteActualMethod();
             AutoManager manager = new AutoManager();
-            manager.UpdateAuto(DtoConverter.ConvertToEntity(car));
+            try
+            {
+                manager.UpdateAuto(DtoConverter.ConvertToEntity(car));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "UpdateCar",
+                    ProblemType = "Onother user updated the DB reload datas."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
+            catch (DbUpdateException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "UpdateCar",
+                    ProblemType = "Error while updating car entry."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
         }
 
         public void UpdateCustomer(KundeDto customer)
         {
             WriteActualMethod();
             KundeManager manager = new KundeManager();
-            manager.Update(DtoConverter.ConvertToEntity(customer));
+            try
+            {
+                manager.Update(DtoConverter.ConvertToEntity(customer));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "UpdateCustomer",
+                    ProblemType = "Onother user updated the DB reload datas."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
+            catch (DbUpdateException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "UpdteCustomer",
+                    ProblemType = "Error while updating customer entry."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
         }
 
         public void UpdateReservation(ReservationDto reservation)
         {
             WriteActualMethod();
             ReservationManager manager = new ReservationManager();
-            manager.UpdateReservation(DtoConverter.ConvertToEntity(reservation));
+            try
+            {
+                manager.UpdateReservation(DtoConverter.ConvertToEntity(reservation));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "UpdateReservation",
+                    ProblemType = "Onother user updated the DB reload datas."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
+            catch (DbUpdateException)
+            {
+                DbFault fault = new DbFault()
+                {
+                    Operation = "UpdateReservation",
+                    ProblemType = "Error while updating reservation entry."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
         }
     }
 }

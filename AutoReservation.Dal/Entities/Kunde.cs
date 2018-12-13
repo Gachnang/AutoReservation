@@ -6,19 +6,19 @@ using AutoReservation.Common.Interfaces;
 
 namespace AutoReservation.Dal.Entities
 {
-    [Table("Customer", Schema = "dal")]
+    [Table("Kunde", Schema = "dbo")]
     public class Kunde : IKunde
     {
         [Column("Id", Order = 0)] [Required] [Key]
         public int Id { get; set; }
 
-        [Column("Prename", Order = 1)] [Required]
+        [Column("Nachname", Order = 1)] [Required]
         public string Nachname { get; set; }
 
-        [Column("Name", Order = 2)] [Required]
+        [Column("Vorname", Order = 2)] [Required]
         public string Vorname { get; set; }
 
-        [Column("Birthday", Order = 3)]
+        [Column("Geburtsdatum", Order = 3)]
         public DateTime Geburtsdatum { get; set; }
 
         [Column("RowVersion", Order = 4)] [Timestamp]

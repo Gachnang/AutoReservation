@@ -12,30 +12,8 @@ using AutoReservation.Service.Wcf;
 using System.ServiceModel;
 
 
-namespace AutoReservation.Wpf.Model {
-    public class ServiceTestRemoteFixture
-        : IDisposable
-    {
-        public ServiceTestRemoteFixture()
-        {
-            ServiceHost = new ServiceHost(typeof(AutoReservationService));
-            ServiceHost.Open();
-        }
-
-        public void Dispose()
-        {
-            if (ServiceHost.State != CommunicationState.Closed)
-            {
-                ServiceHost.Close();
-            }
-        }
-
-        public ServiceHost ServiceHost { get; }
-    }
-    
+namespace AutoReservation.Wpf.Model {    
     public class AutoReservationRepository : INotifyPropertyChanged {
-        private static string DefaultServerUrl = "http://localhost:8080";
-
         private readonly ObservableCollection<AutoDto> _autos;
 
         private IAutoReservationService target;

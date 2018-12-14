@@ -8,7 +8,7 @@ using AutoReservation.Common.DataTransferObjects;
 namespace AutoReservation.Dal.Entities
 {
     [Table("Auto", Schema = "dbo")]
-    public class Auto : IAuto {
+    public abstract class Auto : IAuto {
         [Column("Id", Order = 0)] [Required] [Key]
         public int Id { get ; set; }
         
@@ -18,8 +18,7 @@ namespace AutoReservation.Dal.Entities
         [Column("Tagestarif", Order = 2)] [Required]
         public int Tagestarif { get; set; }
 
-        //[Column("AutoKlassenId", Order = 3)] [Required]
-        [NotMapped]
+        [Column("AutoKlasseId", Order = 3)] [Required]
         public int AutoKlasseId { get; set; }
 
         [NotMapped]

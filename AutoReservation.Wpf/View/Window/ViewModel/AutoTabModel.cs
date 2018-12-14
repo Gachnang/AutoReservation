@@ -6,12 +6,14 @@ using System.Windows;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Extensions;
 using AutoReservation.Common.Interfaces;
+using AutoReservation.Wpf.Model;
 
 namespace AutoReservation.Wpf.View.Window.ViewModel {
     public class AutoTabModel : INotifyPropertyChanged {
         private readonly MainViewModel _mainViewModel;
+        private AutoReservationRepository Repository => _mainViewModel.Repository;
 
-        private IAuto _selectedAuto;
+        private AutoDto _selectedAuto;
 
         public AutoTabModel() {
             if ((bool) DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue) {
@@ -29,7 +31,7 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
 
         public Collection<AutoDto> Autos => _mainViewModel.Repository?.Autos;
 
-        public IAuto SelectedAuto {
+        public AutoDto SelectedAuto {
             get => _selectedAuto;
             set {
                 _selectedAuto = value;
@@ -41,6 +43,7 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
 
 
         public void Save() {
+            Repository.UpdateCar(SelectedAuto);
             // Repository.SetAuto(SelectedAuto);
         }
 

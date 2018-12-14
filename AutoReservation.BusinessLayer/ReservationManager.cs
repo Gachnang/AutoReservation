@@ -17,7 +17,7 @@ namespace AutoReservation.BusinessLayer
 			{
 				using (AutoReservationContext context = new AutoReservationContext())
 				{
-					return context.Reservationen.ToList();
+					return context.Reservationen.Include(r => r.Auto).Include(r => r.Kunde).ToList();
 				}
 			}
 		}

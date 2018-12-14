@@ -26,20 +26,36 @@ namespace AutoReservation.Service.Wcf.Testing
 				new StandardAuto {Id = 4, Marke = "Fiat 500", Tagestarif = 75},
 			};
 			List<Auto> resultList = Target.GetAllCars().ConvertToEntities();
-			Assert.Equal(resultList, list);
+			Assert.Equal(resultList.Count, list.Count);
 		}
 
         [Fact]
         public void GetKundenTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			List<Kunde> list = new List<Kunde>
+			{
+				new Kunde {Id = 1, Nachname = "Nass", Vorname = "Anna", Geburtsdatum = new DateTime(1981, 05, 05)},
+				new Kunde {Id = 2, Nachname = "Beil", Vorname = "Timo", Geburtsdatum = new DateTime(1980, 09, 09)},
+				new Kunde {Id = 3, Nachname = "Pfahl", Vorname = "Martha", Geburtsdatum = new DateTime(1990, 07, 03)},
+				new Kunde {Id = 4, Nachname = "Zufall", Vorname = "Rainer", Geburtsdatum = new DateTime(1954, 11, 11)},
+			};
+			List<Kunde> resultList = Target.GetAllCustomers().ConvertToEntities();
+			Assert.Equal(resultList.Count, list.Count);
+		}
 
         [Fact]
         public void GetReservationenTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			List<Reservation> list = new List<Reservation>
+			{
+				new Reservation { ReservationsNr = 1, AutoId = 1, KundeId = 1, Von = new DateTime(2020, 01, 10), Bis = new DateTime(2020, 01, 20)},
+				new Reservation { ReservationsNr = 2, AutoId = 2, KundeId = 2, Von = new DateTime(2020, 01, 10), Bis = new DateTime(2020, 01, 20)},
+				new Reservation { ReservationsNr = 3, AutoId = 3, KundeId = 3, Von = new DateTime(2020, 01, 10), Bis = new DateTime(2020, 01, 20)},
+				new Reservation { ReservationsNr = 4, AutoId = 2, KundeId = 1, Von = new DateTime(2020, 05, 19), Bis = new DateTime(2020, 06, 19)},
+			};
+			List<Reservation> resultList = Target.GetAllReservations().ConvertToEntities();
+			Assert.Equal(resultList.Count, list.Count);
+		}
 
         #endregion
 

@@ -6,12 +6,28 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.ServiceModel;
 
 namespace AutoReservation.Service.Wcf
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class AutoReservationService : IAutoReservationService
     {
+        private IAutoReservationServiceCallback currentClient =>
+            OperationContext.Current.GetCallbackChannel<IAutoReservationServiceCallback>();
+
+        private static List<IAutoReservationServiceCallback> clients = new List<IAutoReservationServiceCallback>();
+
+        private List<IAutoReservationServiceCallback> EnsureClient() {
+            IAutoReservationServiceCallback client = currentClient;
+            
+            if (!clients.Contains(client)) {
+                clients.Add(client);
+            }
+            
+            return clients;
+        }
 
         /*
          * TODO: Exception handling => catch known exceptions and pack it into faults
@@ -27,6 +43,7 @@ namespace AutoReservation.Service.Wcf
             try
             {
                 manager.InsertAuto(DtoConverter.ConvertToEntity(car));
+                EnsureClient().ForEach(client => client.AddCar(car));
             }
             catch(ArgumentException)
             {
@@ -64,6 +81,7 @@ namespace AutoReservation.Service.Wcf
             try
             {
                 manager.Insert(DtoConverter.ConvertToEntity(customer));
+                EnsureClient().ForEach(client => client.AddCustomer(customer));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -92,6 +110,7 @@ namespace AutoReservation.Service.Wcf
             try
             {
                 manager.InsertReservation(DtoConverter.ConvertToEntity(reservation));
+                EnsureClient().ForEach(client => client.AddReservation(reservation));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -128,6 +147,7 @@ namespace AutoReservation.Service.Wcf
             try
             {
                 manager.DeleteAuto(DtoConverter.ConvertToEntity(car));
+                EnsureClient().ForEach(client => client.DeleteCar(car));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -156,6 +176,7 @@ namespace AutoReservation.Service.Wcf
             try
             {
                 manager.DeleteKunde(DtoConverter.ConvertToEntity(customer));
+                EnsureClient().ForEach(client => client.DeleteCustomer(customer));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -184,6 +205,7 @@ namespace AutoReservation.Service.Wcf
             try
             {
                 manager.DeleteReservation(DtoConverter.ConvertToEntity(reservation));
+                EnsureClient().ForEach(client => client.DeleteReservation(reservation));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -255,6 +277,10 @@ namespace AutoReservation.Service.Wcf
             try
             {
                 manager.UpdateAuto(DtoConverter.ConvertToEntity(car));
+                // TODO: Wenn man den CurrentClient called, gibt es ein timeout! Wie soll das gelöst werden bei Änderungen?
+                //lock (clients) {
+                //    EnsureClient().ForEach(client => client.UpdateCar(car));
+                //}
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -283,6 +309,7 @@ namespace AutoReservation.Service.Wcf
             try
             {
                 manager.Update(DtoConverter.ConvertToEntity(customer));
+                EnsureClient().ForEach(client => client.UpdateCustomer(customer));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -311,6 +338,7 @@ namespace AutoReservation.Service.Wcf
             try
             {
                 manager.UpdateReservation(DtoConverter.ConvertToEntity(reservation));
+                EnsureClient().ForEach(client => client.UpdateReservation(reservation));
             }
             catch (DbUpdateConcurrencyException)
             {

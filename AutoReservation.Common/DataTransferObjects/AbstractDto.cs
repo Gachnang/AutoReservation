@@ -9,7 +9,7 @@ namespace AutoReservation.Common.DataTransferObjects
     /// <summary>
     /// The base of any Dto which provide <see cref="INotifyPropertyChanged"/>.
     /// </summary>
-    [Serializable]
+    [Serializable] [DataContract]
     public abstract class AbstractDto : INotifyPropertyChanged
     {
 

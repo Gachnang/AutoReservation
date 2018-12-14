@@ -12,9 +12,9 @@ namespace AutoReservation.BusinessLayer.Exceptions
         public InvalidDateRangeException(string message) : base(message) { }
         public InvalidDateRangeException(string message, Reservation faultyReservation) : base(message)
         {
-            this.faultyReservation = faultyReservation;
+            this.FaultyReservation = faultyReservation;
         }
 
-        public Reservation faultyReservation { get; set; }
+        public Reservation FaultyReservation { get; set; }
     }
 }

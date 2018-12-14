@@ -1,4 +1,4 @@
-﻿using AutoReservation.BusinessLayer
+﻿using AutoReservation.BusinessLayer;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.DataTransferObjects.Faults;
 using AutoReservation.Common.Interfaces;

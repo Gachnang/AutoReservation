@@ -1,7 +1,10 @@
 ﻿using System;
 using AutoReservation.Common.Interfaces;
 using AutoReservation.TestEnvironment;
+using AutoReservation.Dal;
+using AutoReservation.Dal.Entities;
 using Xunit;
+using System.Collections.Generic;
 
 namespace AutoReservation.Service.Wcf.Testing
 {
@@ -15,8 +18,16 @@ namespace AutoReservation.Service.Wcf.Testing
         [Fact]
         public void GetAutosTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			List<Auto> list = new List<Auto>
+			{
+				new StandardAuto {Id = 1, Marke = "Fiat Punto", Tagestarif = 50},
+				new MittelklasseAuto {Id = 2, Marke = "VW Golf", Tagestarif = 120},
+				new LuxusklasseAuto {Id = 3, Marke = "Audi S6", Tagestarif = 180, Basistarif = 50},
+				new StandardAuto {Id = 4, Marke = "Fiat 500", Tagestarif = 75},
+			};
+			List<Auto> resultList = Target.GetAllCars().ConvertToEntities();
+			Assert.Equal(resultList, list);
+		}
 
         [Fact]
         public void GetKundenTest()

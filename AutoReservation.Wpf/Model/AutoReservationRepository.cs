@@ -15,14 +15,17 @@ using System.ServiceModel;
 namespace AutoReservation.Wpf.Model {    
     public class AutoReservationRepository : INotifyPropertyChanged {
         private readonly ObservableCollection<AutoDto> _autos;
+        public ObservableCollection<AutoDto> Autos => _autos;
 
         private IAutoReservationService target;
+        private IAutoReservationServiceCallback callback;
 
         public AutoReservationRepository(string serverUrl = null) {
 
             if (target == null)
             {
-                ChannelFactory<IAutoReservationService> channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
+                callback = new AutoReservationServiceCallback(this);
+                ChannelFactory<IAutoReservationService> channelFactory = new DuplexChannelFactory<IAutoReservationService>(callback, "AutoReservationService");
                 target = channelFactory.CreateChannel();
             }
             
@@ -30,8 +33,8 @@ namespace AutoReservation.Wpf.Model {
             _autos = new ObservableCollection<AutoDto>(target.GetAllCars());
         }
 
-        public ObservableCollection<AutoDto> Autos => _autos;
-
+        public void AddCar(AutoDto car) => target.AddCar(car);
+        public void UpdateCar(AutoDto car) => target.UpdateCar(car);
 
         public event PropertyChangedEventHandler PropertyChanged;
 

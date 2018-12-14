@@ -1,5 +1,5 @@
-﻿using System;
-using AutoReservation.TestEnvironment;
+﻿using AutoReservation.TestEnvironment;
+using AutoReservation.Dal.Entities;
 using Xunit;
 
 namespace AutoReservation.BusinessLayer.Testing
@@ -13,7 +13,11 @@ namespace AutoReservation.BusinessLayer.Testing
         [Fact]
         public void UpdateAutoTest()
         {
-            throw new NotImplementedException("Test not implemented.");
+            Auto auto = Target.GetAuto(1);
+            string neueMarke = "ACDC";
+            auto.Marke = neueMarke;
+            Target.UpdateAuto(auto);
+            Assert.Equal(neueMarke, Target.GetAuto(1).Marke);
         }
     }
 }

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Extensions;
 using AutoReservation.Common.Interfaces;
-using AutoReservation.Wpf.Logic;
-using AutoReservation.Service.Wcf;
-
 using System.ServiceModel;
 
 
@@ -16,18 +11,18 @@ namespace AutoReservation.Wpf.Model {
     public class AutoReservationRepository : INotifyPropertyChanged {
         private readonly ObservableCollection<AutoDto> _autos;
 
-        private IAutoReservationService target;
+        private IAutoReservationService autoReservationService;
 
         public AutoReservationRepository(string serverUrl = null) {
 
-            if (target == null)
+            if (autoReservationService == null)
             {
                 ChannelFactory<IAutoReservationService> channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
-                target = channelFactory.CreateChannel();
+                autoReservationService = channelFactory.CreateChannel();
             }
             
             // TODO: Real connection
-            _autos = new ObservableCollection<AutoDto>(target.GetAllCars());
+            _autos = new ObservableCollection<AutoDto>(autoReservationService.GetAllCars());
         }
 
         public ObservableCollection<AutoDto> Autos => _autos;

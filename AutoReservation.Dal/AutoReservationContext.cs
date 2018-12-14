@@ -12,6 +12,9 @@ namespace AutoReservation.Dal {
     public class AutoReservationContext : DbContext {
 
         public virtual DbSet<Auto> Autos { get; set; }
+        public virtual DbSet<StandardAuto> StandardAutos { get; set; }
+        public virtual DbSet<MittelklasseAuto> MittelklasseAutos { get; set; }
+        public virtual DbSet<LuxusklasseAuto> LuxusklasseAutos { get; set; }
         public virtual DbSet<Kunde> Kunden { get; set; }
         public virtual DbSet<Reservation> Reservationen { get; set; }
         
@@ -22,13 +25,13 @@ namespace AutoReservation.Dal {
         public AutoReservationContext() {
             if (this.Database.EnsureCreated()) {
                 List<Auto> autos = new List<Auto>() {
-                    new Auto() {
+                    new StandardAuto() {
                         Marke = "Fiat Punto", AutoKlasse = AutoKlasse.Standard, Tagestarif = 50, Basistarif = 0
                     },
-                    new Auto() {
+                    new MittelklasseAuto() {
                         Marke = "VW Golf", AutoKlasse = AutoKlasse.Mittelklasse, Tagestarif = 120, Basistarif = 0
                     },
-                    new Auto() {
+                    new LuxusklasseAuto() {
                         Marke = "Audi S6", AutoKlasse = AutoKlasse.Luxusklasse, Tagestarif = 180, Basistarif = 50
                     }
                 };
@@ -85,6 +88,12 @@ namespace AutoReservation.Dal {
                 .HasForeignKey(reservation => reservation.KundeId)
                 .HasPrincipalKey(kunde => kunde.Id)
                 .IsRequired();
+
+            modelBuilder.Entity<Auto>()
+                .HasDiscriminator<int>("AutoKlasseId")
+                .HasValue<StandardAuto>(AutoKlasse.Standard.ToInt())
+                .HasValue<MittelklasseAuto>(AutoKlasse.Mittelklasse.ToInt())
+                .HasValue<LuxusklasseAuto>(AutoKlasse.Luxusklasse.ToInt());
 
             base.OnModelCreating(modelBuilder);
         }

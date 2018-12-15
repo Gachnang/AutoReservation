@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Extensions;
@@ -14,8 +15,8 @@ using System.ServiceModel;
 
 namespace AutoReservation.Wpf.Model {    
     public class AutoReservationRepository : INotifyPropertyChanged {
-        private readonly ObservableCollection<AutoDto> _autos;
-        public ObservableCollection<AutoDto> Autos => _autos;
+        private readonly ObservableCollection<ChangeTracker<AutoDto>> _autos;
+        public List<AutoDto> Autos => _autos.Select(auto => auto.Current).ToList();
 
         private IAutoReservationService target;
         private IAutoReservationServiceCallback callback;
@@ -30,11 +31,23 @@ namespace AutoReservation.Wpf.Model {
             }
             
             // TODO: Real connection
-            _autos = new ObservableCollection<AutoDto>(target.GetAllCars());
+            _autos = new ObservableCollection<ChangeTracker<AutoDto>>(target.GetAllCars().Select(auto => new ChangeTracker<AutoDto>(auto)));
         }
 
         public void AddCar(AutoDto car) => target.AddCar(car);
         public void UpdateCar(AutoDto car) => target.UpdateCar(car);
+
+        public void SaveCarChanges()
+        {
+            _autos.Where(auto => auto.IsDirty).ToList().ForEach(auto => {
+                UpdateCar(auto.Original);
+            });
+        }
+
+        public void SaveAllChanges()
+        {
+            SaveCarChanges();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

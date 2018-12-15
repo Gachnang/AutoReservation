@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -29,7 +30,7 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
             _mainViewModel = mainViewModel;
         }
 
-        public Collection<AutoDto> Autos => _mainViewModel.Repository?.Autos;
+        public List<AutoDto> Autos => _mainViewModel.Repository?.Autos;
 
         public AutoDto SelectedAuto {
             get => _selectedAuto;
@@ -43,8 +44,8 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
 
 
         public void Save() {
-            Repository.UpdateCar(SelectedAuto);
-            // Repository.SetAuto(SelectedAuto);
+            //Repository.UpdateCar(SelectedAuto);
+            Repository.SaveCarChanges();
         }
 
         [NotifyPropertyChangedInvocator]

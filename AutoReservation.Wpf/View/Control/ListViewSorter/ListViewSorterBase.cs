@@ -33,7 +33,7 @@ namespace AutoReservation.Wpf.View.Control.ListViewSorter {
                 // Remove arrow from previously sorted header 
                 if (_sortColumn != null) {
                     _sortColumn.Column.HeaderTemplate = null;
-                    // todo find better way than always increase width..
+                    // TODO find better way than always increase width..
                     _sortColumn.Column.Width = _sortColumn.ActualWidth - 20;
                 }
 

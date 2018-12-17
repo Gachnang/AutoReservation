@@ -41,6 +41,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <HintPath>..\..\..\..\..\..\..\..\Windows\Microsoft.NET\Framework64\v4.0.30319\System.ServiceModel.dll</HintPath>
     </Reference>
@@ -69,6 +70,8 @@
     <Compile Include="Logic\EnumerationExtension.cs" />
     <Compile Include="Model\AutoReservationRepository.cs" />
     <Compile Include="Model\AutoReservationServiceCallback.cs" />
+    <Compile Include="Model\ChangeTracker.cs" />
+    <Compile Include="Model\RepositoryException.cs" />
     <Compile Include="View\Control\Animation\BrushAnimation.cs" />
     <Compile Include="View\Control\GridViewSorter\GridViewSorter.xaml.cs">
       <DependentUpon>GridViewSorter.xaml</DependentUpon>

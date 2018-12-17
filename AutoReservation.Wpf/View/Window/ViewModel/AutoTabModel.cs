@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Extensions;
@@ -29,7 +31,7 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
             _mainViewModel = mainViewModel;
         }
 
-        public Collection<AutoDto> Autos => _mainViewModel.Repository?.Autos;
+        public List<AutoDto> Autos => _mainViewModel.Repository?.Autos;
 
         public AutoDto SelectedAuto {
             get => _selectedAuto;
@@ -43,8 +45,18 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
 
 
         public void Save() {
-            Repository.UpdateCar(SelectedAuto);
-            // Repository.SetAuto(SelectedAuto);
+            //Repository.UpdateCar(SelectedAuto);
+            try {
+                Repository.SaveCarChanges();
+            } catch (Exception e) {
+                StringBuilder sb = new StringBuilder("Message:");
+                do {
+                    sb.Append(Environment.NewLine + e.Message);
+                    e = e.InnerException;
+                } while(e != null);
+
+                MessageBox.Show(sb.ToString(), "Fehler beim Speichern");
+            }
         }
 
         [NotifyPropertyChangedInvocator]

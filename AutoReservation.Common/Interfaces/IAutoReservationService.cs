@@ -6,8 +6,7 @@ using System.ServiceModel;
 namespace AutoReservation.Common.Interfaces
 {
     [ServiceContract(
-        SessionMode = SessionMode.Allowed,
-        CallbackContract = typeof(IAutoReservationServiceCallback))]
+        SessionMode = SessionMode.Allowed)]
     public interface IAutoReservationService
     {
         #region CRUD Operations Car

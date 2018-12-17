@@ -19,14 +19,12 @@ namespace AutoReservation.Wpf.Model {
         public List<AutoDto> Autos => _autos.Select(auto => auto.Current).ToList();
 
         private IAutoReservationService target;
-        private IAutoReservationServiceCallback callback;
 
         public AutoReservationRepository(string serverUrl = null) {
 
             if (target == null)
             {
-                callback = new AutoReservationServiceCallback(this);
-                ChannelFactory<IAutoReservationService> channelFactory = new DuplexChannelFactory<IAutoReservationService>(callback, "AutoReservationService");
+                ChannelFactory<IAutoReservationService> channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
                 target = channelFactory.CreateChannel();
             }
             

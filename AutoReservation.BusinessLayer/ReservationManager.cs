@@ -11,7 +11,7 @@ namespace AutoReservation.BusinessLayer
 	public class ReservationManager
 		: ManagerBase
 	{
-		public List<Reservation> List
+		public List<Reservation> ListOfReservationen
 		{
 			get
 			{

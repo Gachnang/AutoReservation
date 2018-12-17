@@ -80,7 +80,7 @@ namespace AutoReservation.Service.Wcf
             KundeManager manager = new KundeManager();
             try
             {
-                manager.Insert(DtoConverter.ConvertToEntity(customer));
+                manager.InsertKunde(DtoConverter.ConvertToEntity(customer));
                 EnsureClient().ForEach(client => client.AddCustomer(customer));
             }
             catch (DbUpdateConcurrencyException)
@@ -232,21 +232,21 @@ namespace AutoReservation.Service.Wcf
         {
             WriteActualMethod();
             AutoManager manager = new AutoManager();
-            return DtoConverter.ConvertToDtos(manager.List);
+            return DtoConverter.ConvertToDtos(manager.ListOfAutos);
         }
 
         public List<KundeDto> GetAllCustomers()
         {
             WriteActualMethod();
             KundeManager manager = new KundeManager();
-            return DtoConverter.ConvertToDtos(manager.GetKunden());
+            return DtoConverter.ConvertToDtos(manager.ListOfKunden);
         }
 
         public List<ReservationDto> GetAllReservations()
         {
             WriteActualMethod();
             ReservationManager manager = new ReservationManager();
-            return DtoConverter.ConvertToDtos(manager.List);
+            return DtoConverter.ConvertToDtos(manager.ListOfReservationen);
         }
 
         public AutoDto GetCar(int id)
@@ -308,7 +308,7 @@ namespace AutoReservation.Service.Wcf
             KundeManager manager = new KundeManager();
             try
             {
-                manager.Update(DtoConverter.ConvertToEntity(customer));
+                manager.UpdateKunde(DtoConverter.ConvertToEntity(customer));
                 EnsureClient().ForEach(client => client.UpdateCustomer(customer));
             }
             catch (DbUpdateConcurrencyException)

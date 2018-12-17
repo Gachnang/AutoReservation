@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Remoting.Messaging;
@@ -9,23 +11,11 @@ using System.Text;
 using AutoReservation.Wpf.Logic;
 
 namespace AutoReservation.Wpf.Model {
-    public class ChangeTracker<T> {
+    public class ChangeTracker<T> where T : INotifyPropertyChanged {
         public readonly T Original;
         public readonly T Current;
 
-        public bool IsDirty {
-            get {
-                PropertyInfo[] properties = Original.GetType().GetProperties();
-                foreach (PropertyInfo propertyInfo in properties)
-                {
-                    if (!propertyInfo.GetValue(Original).Equals(propertyInfo.GetValue(Current))) {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-        }
+        public bool IsDirty { get; set; }
 
         public ChangeTracker(T original) {
             if (original == null) {
@@ -34,6 +24,8 @@ namespace AutoReservation.Wpf.Model {
 
             Original = original;
             Current = original.Clone();
+
+            Current.PropertyChanged += (sender, args) => IsDirty = true;
         }
     }
 }

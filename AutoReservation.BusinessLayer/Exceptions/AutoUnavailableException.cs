@@ -3,7 +3,7 @@ using System;
 
 namespace AutoReservation.BusinessLayer.Exceptions
 {
-	class AutoUnavailableException : Exception
+	public class AutoUnavailableException : Exception
 	{
 		public AutoUnavailableException(string message) : base(message) { }
 		public AutoUnavailableException(string message, Reservation faultyReservation) : base(message)

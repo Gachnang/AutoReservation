@@ -10,11 +10,14 @@ namespace AutoReservation.BusinessLayer
         : ManagerBase
     {
 
-        public List<Kunde> GetKunden()
+        public List<Kunde> ListOfKunden
         {
-            using (AutoReservationContext context = new AutoReservationContext())
+            get
             {
-                return context.Kunden.ToList();
+                using (AutoReservationContext context = new AutoReservationContext())
+                {
+                   return context.Kunden.ToList();
+                }
             }
         }
 
@@ -35,7 +38,7 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public int Insert (Kunde kunde)
+        public int InsertKunde (Kunde kunde)
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {
@@ -45,7 +48,7 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public void Update (Kunde kunde)
+        public void UpdateKunde (Kunde kunde)
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {

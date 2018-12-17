@@ -1,5 +1,7 @@
 ﻿using System;
 using AutoReservation.TestEnvironment;
+using AutoReservation.Dal.Entities;
+using AutoReservation.BusinessLayer.Exceptions;
 using Xunit;
 
 namespace AutoReservation.BusinessLayer.Testing
@@ -13,31 +15,70 @@ namespace AutoReservation.BusinessLayer.Testing
         [Fact]
         public void ScenarioOkay01Test()
         {
-            throw new NotImplementedException("Test not implemented.");
+            Reservation reservation = new Reservation
+            {
+                AutoId = 1,
+                KundeId = 1,
+                Von = new DateTime(2020, 01, 10, 10, 00, 00),
+                Bis = new DateTime(2020, 01, 11, 10, 00, 00)
+            };
+            Target.InsertReservation(reservation);
+            int count = Target.ListOfReservationen.Count;
+            Assert.Equal(reservation, Target.GetReservation(count - 1));
         }
 
         [Fact]
         public void ScenarioOkay02Test()
         {
-            throw new NotImplementedException("Test not implemented.");
+            Reservation reservation = new Reservation
+            {
+                AutoId = 1,
+                KundeId = 1,
+                Von = new DateTime(2020, 01, 10),
+                Bis = new DateTime(2020, 01, 20)
+            };
+            Target.InsertReservation(reservation);
+            int count = Target.ListOfReservationen.Count;
+            Assert.Equal(reservation, Target.GetReservation(count - 1));
         }
 
         [Fact]
         public void ScenarioNotOkay01Test()
         {
-            throw new NotImplementedException("Test not implemented.");
+            Reservation reservation = new Reservation
+            {
+                AutoId = 1,
+                KundeId = 1,
+                Von = new DateTime(2020, 01, 20),
+                Bis = new DateTime(2020, 01, 10)
+            };
+            Assert.Throws<InvalidDateRangeException>(() => Target.InsertReservation(reservation));
         }
 
         [Fact]
         public void ScenarioNotOkay02Test()
         {
-            throw new NotImplementedException("Test not implemented.");
+            Reservation reservation = new Reservation
+            {
+                AutoId = 1,
+                KundeId = 1,
+                Von = new DateTime(2020, 01, 10, 10, 00, 00),
+                Bis = new DateTime(2020, 01, 11, 09, 59, 00)
+            };
+            Assert.Throws<InvalidDateRangeException>(() => Target.InsertReservation(reservation));
         }
 
         [Fact]
         public void ScenarioNotOkay03Test()
         {
-            throw new NotImplementedException("Test not implemented.");
+            Reservation reservation = new Reservation
+            {
+                AutoId = 1,
+                KundeId = 1,
+                Von = new DateTime(2020, 01, 10, 10, 00, 00),
+                Bis = new DateTime(2020, 01, 11, 10, 00, 00)
+            };
+            Assert.Throws<InvalidDateRangeException>(() => Target.InsertReservation(reservation));
         }
     }
 }

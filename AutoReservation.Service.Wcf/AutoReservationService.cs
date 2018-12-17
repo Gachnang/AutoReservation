@@ -1,4 +1,4 @@
-using AutoReservation.BusinessLayer;
+﻿using AutoReservation.BusinessLayer;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.DataTransferObjects.Faults;
 using AutoReservation.Common.Interfaces;
@@ -8,358 +8,253 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 
 namespace AutoReservation.Service.Wcf
 {
-	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
-	public class AutoReservationService : IAutoReservationService
-	{
-		private IAutoReservationServiceCallback currentClient =>
-			OperationContext.Current.GetCallbackChannel<IAutoReservationServiceCallback>();
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
+    public class AutoReservationService : IAutoReservationService
+    {
+        private IAutoReservationServiceCallback currentClient =>
+            OperationContext.Current.GetCallbackChannel<IAutoReservationServiceCallback>();
 
-		private static List<IAutoReservationServiceCallback> clients = new List<IAutoReservationServiceCallback>();
+        private List<IAutoReservationServiceCallback> clients = new List<IAutoReservationServiceCallback>();
 
-		private List<IAutoReservationServiceCallback> EnsureClient()
-		{
-			IAutoReservationServiceCallback client = currentClient;
+        private List<IAutoReservationServiceCallback> EnsureClient() {
+            IAutoReservationServiceCallback client = currentClient;
+            
+            if (!clients.Contains(client)) {
+                clients.Add(client);
+            }
+            
+            return clients;
+        }
 
-			if (!clients.Contains(client))
-			{
-				clients.Add(client);
-			}
+        /// <summary>
+        ///  https://stackoverflow.com/questions/2332531/prevent-exceptions-from-wcf-callbacks
+        /// </summary>
+        /// <param name="contract"></param>
+        /// <param name="op"></param>
+        private void InvokeWcf(IAutoReservationServiceCallback contract, Action<IAutoReservationServiceCallback> op)
+        {
+            if (((ICommunicationObject)contract).State != CommunicationState.Opened)
+            {
+                lock (clients)
+                    clients.Remove(contract);
+                //myLogger.LogError("That contract isn't open! Disconnected.");
+                return;
+            }
 
-			return clients;
-		}
+            try {
+                op(contract);
+            } catch (TimeoutException ex) {
+                lock (clients)
+                    clients.Remove(contract);
+                //myLogger.LogError("That contract timed out! Disconnected.", ex);
+                return;
+            } catch (CommunicationException ex)
+            {
+                lock (clients)
+                    clients.Remove(contract);
+            } catch (ObjectDisposedException ex)
+            {
+                lock (clients)
+                    clients.Remove(contract);
+            } catch (Exception ex)
+            {
+                // Unexpected case.
+                lock (clients)
+                    clients.Remove(contract);
+                // myLogger.FatalError("Something really bad happened!.", ex);
+                throw;
+            }
+        }
 
-		/*
+        private bool InvokeDb(Action op) {
+
+            try {
+                op();
+                return true;
+            } catch (ArgumentException) {
+                ConverterFault fault = new ConverterFault() {
+                    Operation = ActualMethod,
+                    ProblemType = "Entry has non existing class type"
+                };
+                throw new FaultException<ConverterFault>(fault);
+            } catch (DbUpdateConcurrencyException) {
+                DbFault fault = new DbFault() {
+                    Operation = ActualMethod,
+                    ProblemType = "Onother user updated the DB reload datas."
+                };
+                throw new FaultException<DbFault>(fault);
+            } catch (DbUpdateException) {
+                DbFault fault = new DbFault() {
+                    Operation = ActualMethod,
+                    ProblemType = "Error while creating new entry."
+                };
+                throw new FaultException<DbFault>(fault);
+            }
+        }
+
+        /*
          * TODO: Exception handling => catch known exceptions and pack it into faults
          */
 
-		private static void WriteActualMethod()
-			=> Console.WriteLine($"Calling: {new StackTrace().GetFrame(1).GetMethod().Name}");
+        private static string ActualMethod => new StackTrace().GetFrame(2).GetMethod().Name;
 
-		public void AddCar(AutoDto car)
-		{
-			WriteActualMethod();
-			AutoManager manager = new AutoManager();
-			try
-			{
-				manager.InsertAuto(DtoConverter.ConvertToEntity(car));
-				EnsureClient().ForEach(client => client.AddCar(car));
-			}
-			catch (ArgumentException)
-			{
-				ConverterFault fault = new ConverterFault()
-				{
-					Operation = "AddCar",
-					ProblemType = "Car has non existing class type"
-				};
-				throw new FaultException<ConverterFault>(fault);
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "AddCar",
-					ProblemType = "Onother user updated the DB reload datas."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-			catch (DbUpdateException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "AddCar",
-					ProblemType = "Error while creating new car entry."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-		}
+        private static void WriteActualMethod()
+        => Console.WriteLine($"Calling: {ActualMethod}");
 
-		public void AddCustomer(KundeDto customer)
-		{
-			WriteActualMethod();
-			KundeManager manager = new KundeManager();
-			try
-			{
-				manager.Insert(DtoConverter.ConvertToEntity(customer));
-				EnsureClient().ForEach(client => client.AddCustomer(customer));
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "AddCustomer",
-					ProblemType = "Onother user updated the DB reload datas."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-			catch (DbUpdateException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "AddCustomer",
-					ProblemType = "Error while creating new customer entry."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-		}
+        public void AddCar(AutoDto car)
+        {
+            WriteActualMethod();
+            InvokeDb(() => new AutoManager().InsertAuto(DtoConverter.ConvertToEntity(car)));
 
-		public void AddReservation(ReservationDto reservation)
-		{
-			WriteActualMethod();
-			ReservationManager manager = new ReservationManager();
-			try
-			{
-				manager.InsertReservation(DtoConverter.ConvertToEntity(reservation));
-				EnsureClient().ForEach(client => client.AddReservation(reservation));
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "AddReservation",
-					ProblemType = "Onother user updated the DB reload datas."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-			catch (DbUpdateException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "AddReservation",
-					ProblemType = "Error while creating new reservation entry."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-		}
+            lock (clients) {
+                EnsureClient().ForEach(client => this.InvokeWcf(client, c => c.AddCar(car)));
+            }
+        }
 
-		public bool CarAvailable()
-		{
-			WriteActualMethod();
-			// TODO: Check if car is available
+        public void AddCustomer(KundeDto customer)
+        {
+            WriteActualMethod();
+            InvokeDb(() => new KundeManager().Insert(DtoConverter.ConvertToEntity(customer)));
+
+            lock (clients)
+            {
+                EnsureClient().Where(client => !client.Equals(currentClient)).ToList().ForEach(client => client.AddCustomer(customer));
+            }
+        }
+
+        public void AddReservation(ReservationDto reservation)
+        {
+            WriteActualMethod();
+            InvokeDb(() => new ReservationManager().InsertReservation(DtoConverter.ConvertToEntity(reservation)));
+
+            lock (clients)
+            {
+                EnsureClient().Where(client => !client.Equals(currentClient)).ToList().ForEach(client => client.AddReservation(reservation));
+            }
+        }
+
+        public bool CarAvailable()
+        {
+            WriteActualMethod();
+            // TODO: Check if car is available
 			// Do we even need that? (M)
-			throw new NotImplementedException();
-		}
+            throw new NotImplementedException();
+        }
 
-		public void DeleteCar(AutoDto car)
-		{
-			WriteActualMethod();
-			AutoManager manager = new AutoManager();
-			try
-			{
-				manager.DeleteAuto(DtoConverter.ConvertToEntity(car));
-				EnsureClient().ForEach(client => client.DeleteCar(car));
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "DeleteCar",
-					ProblemType = "Onother user updated the DB reload datas."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-			catch (DbUpdateException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "DeleteCar",
-					ProblemType = "Error while deleting car entry."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-		}
+        public void DeleteCar(AutoDto car)
+        {
+            WriteActualMethod();
+            InvokeDb(() => new AutoManager().DeleteAuto(DtoConverter.ConvertToEntity(car))); ;
 
-		public void DeleteCustomer(KundeDto customer)
-		{
-			WriteActualMethod();
-			KundeManager manager = new KundeManager();
-			try
-			{
-				manager.DeleteKunde(DtoConverter.ConvertToEntity(customer));
-				EnsureClient().ForEach(client => client.DeleteCustomer(customer));
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "DeleteCustomer",
-					ProblemType = "Onother user updated the DB reload datas."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-			catch (DbUpdateException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "DeleteCustomer",
-					ProblemType = "Error while deleting customer entry."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-		}
+            lock (clients) {
+                EnsureClient().Where(client => !client.Equals(currentClient)).ToList().ForEach(client => client.DeleteCar(car));
+            }
+        }
 
-		public void DeleteReservation(ReservationDto reservation)
-		{
-			WriteActualMethod();
-			ReservationManager manager = new ReservationManager();
-			try
-			{
-				manager.DeleteReservation(DtoConverter.ConvertToEntity(reservation));
-				EnsureClient().ForEach(client => client.DeleteReservation(reservation));
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "DeleteReservation",
-					ProblemType = "Onother user updated the DB reload datas."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-			catch (DbUpdateException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "DeleteReservation",
-					ProblemType = "Error while deleting reservation entry."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
+        public void DeleteCustomer(KundeDto customer)
+        {
+            WriteActualMethod();
+            InvokeDb(() => new KundeManager().DeleteKunde(DtoConverter.ConvertToEntity(customer)));
 
-		}
+            lock (clients)
+            {
+                EnsureClient().Where(client => !client.Equals(currentClient)).ToList().ForEach(client => client.DeleteCustomer(customer));
+            }
+        }
 
-		public List<AutoDto> GetAllCars()
-		{
-			WriteActualMethod();
-			AutoManager manager = new AutoManager();
-			return DtoConverter.ConvertToDtos(manager.List);
-		}
+        public void DeleteReservation(ReservationDto reservation)
+        {
+            WriteActualMethod();
+            InvokeDb(() => new ReservationManager().DeleteReservation(DtoConverter.ConvertToEntity(reservation)));
 
-		public List<KundeDto> GetAllCustomers()
-		{
-			WriteActualMethod();
-			KundeManager manager = new KundeManager();
-			return DtoConverter.ConvertToDtos(manager.GetKunden());
-		}
+            lock (clients)
+            {
+                EnsureClient().Where(client => !client.Equals(currentClient)).ToList().ForEach(client => client.DeleteReservation(reservation));
+            }
+        }
 
-		public List<ReservationDto> GetAllReservations()
-		{
-			WriteActualMethod();
-			ReservationManager manager = new ReservationManager();
-			return DtoConverter.ConvertToDtos(manager.List);
-		}
+        public List<AutoDto> GetAllCars() {
+            EnsureClient();
 
-		public AutoDto GetCar(int id)
-		{
-			WriteActualMethod();
-			AutoManager manager = new AutoManager();
-			return DtoConverter.ConvertToDto(manager.GetAuto(id));
-		}
+            WriteActualMethod();
+            AutoManager manager = new AutoManager();
+            return DtoConverter.ConvertToDtos(manager.List);
+        }
 
-		public KundeDto GetCustomer(int id)
-		{
-			WriteActualMethod();
-			KundeManager manager = new KundeManager();
-			return DtoConverter.ConvertToDto(manager.GetKunde(id));
-		}
+        public List<KundeDto> GetAllCustomers() {
+            EnsureClient();
 
-		public ReservationDto GetReservation(int id)
-		{
-			WriteActualMethod();
-			ReservationManager manager = new ReservationManager();
-			return DtoConverter.ConvertToDto(manager.GetReservation(id));
-		}
+            WriteActualMethod();
+            KundeManager manager = new KundeManager();
+            return DtoConverter.ConvertToDtos(manager.GetKunden());
+        }
 
-		public void UpdateCar(AutoDto car)
-		{
-			WriteActualMethod();
-			AutoManager manager = new AutoManager();
-			try
-			{
-				manager.UpdateAuto(DtoConverter.ConvertToEntity(car));
-				// TODO: Wenn man den CurrentClient called, gibt es ein timeout! Wie soll das gelöst werden bei Änderungen?
-				//lock (clients) {
-				//    EnsureClient().ForEach(client => client.UpdateCar(car));
-				//}
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "UpdateCar",
-					ProblemType = "Onother user updated the DB reload datas."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-			catch (DbUpdateException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "UpdateCar",
-					ProblemType = "Error while updating car entry."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-		}
+        public List<ReservationDto> GetAllReservations() {
+            EnsureClient();
 
-		public void UpdateCustomer(KundeDto customer)
-		{
-			WriteActualMethod();
-			KundeManager manager = new KundeManager();
-			try
-			{
-				manager.Update(DtoConverter.ConvertToEntity(customer));
-				EnsureClient().ForEach(client => client.UpdateCustomer(customer));
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "UpdateCustomer",
-					ProblemType = "Onother user updated the DB reload datas."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-			catch (DbUpdateException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "UpdteCustomer",
-					ProblemType = "Error while updating customer entry."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-		}
+            WriteActualMethod();
+            ReservationManager manager = new ReservationManager();
+            return DtoConverter.ConvertToDtos(manager.List);
+        }
 
-		public void UpdateReservation(ReservationDto reservation)
-		{
-			WriteActualMethod();
-			ReservationManager manager = new ReservationManager();
-			try
-			{
-				manager.UpdateReservation(DtoConverter.ConvertToEntity(reservation));
-				EnsureClient().ForEach(client => client.UpdateReservation(reservation));
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "UpdateReservation",
-					ProblemType = "Onother user updated the DB reload datas."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-			catch (DbUpdateException)
-			{
-				DbFault fault = new DbFault()
-				{
-					Operation = "UpdateReservation",
-					ProblemType = "Error while updating reservation entry."
-				};
-				throw new FaultException<DbFault>(fault);
-			}
-		}
-	}
+        public AutoDto GetCar(int id) {
+            EnsureClient();
+
+            WriteActualMethod();
+            AutoManager manager = new AutoManager();
+            return DtoConverter.ConvertToDto(manager.GetAuto(id));
+        }
+
+        public KundeDto GetCustomer(int id) {
+            EnsureClient();
+
+            WriteActualMethod();
+            KundeManager manager = new KundeManager();
+            return DtoConverter.ConvertToDto(manager.GetKunde(id));
+        }
+
+        public ReservationDto GetReservation(int id) {
+            EnsureClient();
+
+            WriteActualMethod();
+            ReservationManager manager = new ReservationManager();
+            return DtoConverter.ConvertToDto(manager.GetReservation(id));
+        }
+
+        public void UpdateCar(AutoDto car)
+        {
+            WriteActualMethod();
+            InvokeDb(() => new AutoManager().UpdateAuto(DtoConverter.ConvertToEntity(car)));
+
+            lock (clients) {
+                EnsureClient().Where(client => !client.Equals(currentClient)).ToList().ForEach(client => client.UpdateCar(car));
+            }
+        }
+
+        public void UpdateCustomer(KundeDto customer)
+        {
+            WriteActualMethod();
+            InvokeDb(() => new KundeManager().Update(DtoConverter.ConvertToEntity(customer)));
+
+            lock (clients)
+            {
+                EnsureClient().Where(client => !client.Equals(currentClient)).ToList().ForEach(client => client.UpdateCustomer(customer));
+            }
+        }
+
+        public void UpdateReservation(ReservationDto reservation)
+        {
+            WriteActualMethod();
+            InvokeDb(() => new ReservationManager().UpdateReservation(DtoConverter.ConvertToEntity(reservation)));
+
+            lock (clients)
+            {
+                EnsureClient().Where(client => !client.Equals(currentClient)).ToList().ForEach(client => client.UpdateReservation(reservation));
+            }
+        }
+    }
 }

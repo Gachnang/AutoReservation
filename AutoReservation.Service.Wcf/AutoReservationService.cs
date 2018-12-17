@@ -118,7 +118,7 @@ namespace AutoReservation.Service.Wcf
         public void AddCustomer(KundeDto customer)
         {
             WriteActualMethod();
-            InvokeDb(() => new KundeManager().Insert(DtoConverter.ConvertToEntity(customer)));
+            InvokeDb(() => new KundeManager().InsertKunde(DtoConverter.ConvertToEntity(customer)));
 
             lock (clients)
             {
@@ -182,7 +182,7 @@ namespace AutoReservation.Service.Wcf
 
             WriteActualMethod();
             AutoManager manager = new AutoManager();
-            return DtoConverter.ConvertToDtos(manager.List);
+            return DtoConverter.ConvertToDtos(manager.ListOfAutos);
         }
 
         public List<KundeDto> GetAllCustomers() {
@@ -190,7 +190,7 @@ namespace AutoReservation.Service.Wcf
 
             WriteActualMethod();
             KundeManager manager = new KundeManager();
-            return DtoConverter.ConvertToDtos(manager.GetKunden());
+            return DtoConverter.ConvertToDtos(manager.ListOfKunden);
         }
 
         public List<ReservationDto> GetAllReservations() {
@@ -198,7 +198,7 @@ namespace AutoReservation.Service.Wcf
 
             WriteActualMethod();
             ReservationManager manager = new ReservationManager();
-            return DtoConverter.ConvertToDtos(manager.List);
+            return DtoConverter.ConvertToDtos(manager.ListOfReservationen);
         }
 
         public AutoDto GetCar(int id) {
@@ -238,7 +238,7 @@ namespace AutoReservation.Service.Wcf
         public void UpdateCustomer(KundeDto customer)
         {
             WriteActualMethod();
-            InvokeDb(() => new KundeManager().Update(DtoConverter.ConvertToEntity(customer)));
+            InvokeDb(() => new KundeManager().UpdateKunde(DtoConverter.ConvertToEntity(customer)));
 
             lock (clients)
             {

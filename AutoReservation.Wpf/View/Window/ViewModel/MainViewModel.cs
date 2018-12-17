@@ -1,12 +1,28 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Windows;
 using AutoReservation.Common.Extensions;
 using AutoReservation.Wpf.Model;
 
 namespace AutoReservation.Wpf.View.Window.ViewModel {
     public class MainViewModel : INotifyPropertyChanged {
         public MainViewModel() {
-            Repository = new AutoReservationRepository();
+            try {
+                Repository = new AutoReservationRepository();
+            } catch (Exception e) {
+                StringBuilder sb = new StringBuilder("Message:");
+                do
+                {
+                    sb.Append(Environment.NewLine + e.Message);
+                    e = e.InnerException;
+                } while (e != null);
+
+                MessageBox.Show(sb.ToString(), "Fehler beim Öffnen");
+                Application.Current.Shutdown(2);
+            }
+
             Repository.PropertyChanged += (o, e) => { OnPropertyChanged("Repository"); };
 
             AutoTabModel = new AutoTabModel(this);

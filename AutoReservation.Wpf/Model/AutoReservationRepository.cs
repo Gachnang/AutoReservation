@@ -30,12 +30,28 @@ namespace AutoReservation.Wpf.Model {
                 target = channelFactory.CreateChannel();
             }
             
-            // TODO: Real connection
+            // TODO: Repair Real connection
             _autos = new ObservableCollection<ChangeTracker<AutoDto>>(target.GetAllCars().Select(auto => new ChangeTracker<AutoDto>(auto)));
         }
 
-        public void AddCar(AutoDto car) => target.AddCar(car);
-        public void UpdateCar(AutoDto car) => target.UpdateCar(car);
+        public void AddCar(AutoDto car) {
+            try {
+                target.AddCar(car);
+            } catch (Exception e) {
+                throw new RepositoryException("Auto konnte nicht hinzugefügt werden.", e);
+            }
+        }
+
+        public void UpdateCar(AutoDto car) {
+            try
+            {
+                target.UpdateCar(car);
+            }
+            catch (Exception e)
+            {
+                throw new RepositoryException("Auto konnte nicht geändert werden.", e);
+            }
+        }
 
         public void SaveCarChanges()
         {

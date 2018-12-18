@@ -16,17 +16,15 @@ using System.ServiceModel;
 namespace AutoReservation.Wpf.Model {    
     public class AutoReservationRepository : INotifyPropertyChanged {
         private readonly ObservableCollection<ChangeTracker<AutoDto>> _autos;
-        public List<AutoDto> Autos => _autos.Select(auto => auto.Current).ToList();
+        public List<ChangeTracker<AutoDto>> Autos => _autos.ToList(); //.Select(auto => auto.Current).ToList();
 
         private IAutoReservationService target;
-        private IAutoReservationServiceCallback callback;
 
         public AutoReservationRepository(string serverUrl = null) {
 
             if (target == null)
             {
-                callback = new AutoReservationServiceCallback(this);
-                ChannelFactory<IAutoReservationService> channelFactory = new DuplexChannelFactory<IAutoReservationService>(callback, "AutoReservationService");
+                ChannelFactory<IAutoReservationService> channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
                 target = channelFactory.CreateChannel();
             }
             
@@ -34,7 +32,7 @@ namespace AutoReservation.Wpf.Model {
             _autos = new ObservableCollection<ChangeTracker<AutoDto>>(target.GetAllCars().Select(auto => new ChangeTracker<AutoDto>(auto)));
         }
 
-        public void AddCar(AutoDto car) {
+        private void AddCar(AutoDto car) {
             try {
                 target.AddCar(car);
             } catch (Exception e) {
@@ -42,7 +40,8 @@ namespace AutoReservation.Wpf.Model {
             }
         }
 
-        public void UpdateCar(AutoDto car) {
+        private void UpdateCar(AutoDto car)
+        {
             try
             {
                 target.UpdateCar(car);
@@ -53,10 +52,33 @@ namespace AutoReservation.Wpf.Model {
             }
         }
 
+        private void DeleteCar(AutoDto car)
+        {
+            try
+            {
+                target.DeleteCar(car);
+            }
+            catch (Exception e)
+            {
+                throw new RepositoryException("Auto konnte nicht gelöscht werden.", e);
+            }
+        }
+
         public void SaveCarChanges()
         {
             _autos.Where(auto => auto.IsDirty).ToList().ForEach(auto => {
-                UpdateCar(auto.Original);
+                if (auto.IsNew)
+                {
+                    AddCar(auto.Current);
+                    auto.IsNew = false;
+                } else if (auto.IsDeleted)
+                {
+                    DeleteCar(auto.Current);
+                    _autos.Remove(auto);
+                } else {
+                    UpdateCar(auto.Current);
+                }
+                auto.IsDirty = false;
             });
         }
 

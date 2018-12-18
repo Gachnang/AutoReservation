@@ -4,13 +4,13 @@ using AutoReservation.Common.Interfaces;
 
 namespace AutoReservation.Common.DataTransferObjects
 {
-    public class ReservationDto : AbstractDto, IReservation
+    public class ReservationDto : AbstractDto
     {
         private int _reservationNr;
         private int _autoId;
-        private IAuto _auto;
+        private AutoDto _auto;
         private int _kundeId;
-        private IKunde _kunde;
+        private KundeDto _kunde;
         private DateTime _von;
         private DateTime _bis;
         private byte[] _rowVersion;
@@ -28,7 +28,7 @@ namespace AutoReservation.Common.DataTransferObjects
             set => SetProperty(ref _autoId, value);
         }
 
-        public IAuto Auto {
+        public AutoDto Auto {
             get => _auto;
             set {
                 Debug.Assert(value is AutoDto);
@@ -41,7 +41,7 @@ namespace AutoReservation.Common.DataTransferObjects
             set => SetProperty(ref _kundeId, value);
         }
 
-        public IKunde Kunde {
+        public KundeDto Kunde {
             get => _kunde;
             set {
                 Debug.Assert(value is KundeDto);

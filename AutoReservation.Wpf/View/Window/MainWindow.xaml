@@ -13,10 +13,6 @@
         HorizontalAlignment="Stretch"
         TabStripPlacement="Left"
         VerticalAlignment="Stretch">
-        <TabItem Header="Overview">
-            <window:OverviewTap />
-        </TabItem>
-
         <TabItem Header="Autos">
             <window:AutoTab DataContext="{Binding Path=AutoTabModel, UpdateSourceTrigger=PropertyChanged}" />
         </TabItem>

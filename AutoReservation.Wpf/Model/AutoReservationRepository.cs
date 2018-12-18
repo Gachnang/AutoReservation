@@ -184,7 +184,7 @@ namespace AutoReservation.Wpf.Model {
 		}
 
 		public void MarkNotFilledFields(){
-
+			//TODO: Update GUI to reflect missing fields
 		}
 
 		public void SaveAllChanges()

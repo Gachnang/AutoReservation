@@ -5,7 +5,7 @@ using AutoReservation.Common.Interfaces;
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
-    public class AutoDto : AbstractDto, IAuto
+    public class AutoDto : AbstractDto
     {
         private int _id;
         [DataMember]

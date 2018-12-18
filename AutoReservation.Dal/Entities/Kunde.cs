@@ -7,7 +7,7 @@ using AutoReservation.Common.Interfaces;
 namespace AutoReservation.Dal.Entities
 {
     [Table("Kunde", Schema = "dbo")]
-    public class Kunde : IKunde
+    public class Kunde
     {
         [Column("Id", Order = 0)] [Required] [Key]
         public int Id { get; set; }

@@ -8,7 +8,7 @@ using AutoReservation.Common.DataTransferObjects;
 namespace AutoReservation.Dal.Entities
 {
     [Table("Auto", Schema = "dbo")]
-    public abstract class Auto : IAuto {
+    public abstract class Auto {
         [Column("Id", Order = 0)] [Required] [Key]
         public int Id { get ; set; }
         

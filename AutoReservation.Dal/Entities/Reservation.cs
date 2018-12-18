@@ -6,7 +6,7 @@ using AutoReservation.Common.Interfaces;
 namespace AutoReservation.Dal.Entities
 {
     [Table("Reservation", Schema = "dbo")]
-    public class Reservation : IReservation
+    public class Reservation
     {
         [Column("ReservationNo", Order = 0)] [Required] [Key]
         public int ReservationsNr { get; set; }
@@ -15,13 +15,13 @@ namespace AutoReservation.Dal.Entities
         public int AutoId { get; set; }
 
         [ForeignKey("AutoId")]
-        public virtual IAuto Auto { get; set; }
+        public virtual Auto Auto { get; set; }
 
         [Column("KundeId", Order = 2)] [Required]
         public int KundeId { get; set; }
 
         [ForeignKey("KundeId")]
-        public virtual IKunde Kunde { get; set; }
+        public virtual Kunde Kunde { get; set; }
 
         [Column("Von", Order = 3)] [Required]
         public DateTime Von { get; set; }

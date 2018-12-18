@@ -74,14 +74,19 @@ namespace AutoReservation.Wpf.Model {
                 if (auto.IsNew && auto.IsDeleted) {
                     _autos.Remove(auto);
                 } else if (auto.IsNew) {
-                    AddCar(auto.Current);
-                    auto.IsNew = false;
+					if(CarFieldsNotNull(auto.Current)){
+						AddCar(auto.Current);
+						auto.IsNew = false;
+					}
                 } else if (auto.IsDeleted)
                 {
                     DeleteCar(auto.Current);
                     _autos.Remove(auto);
                 } else {
-                    UpdateCar(auto.Current);
+					if (CarFieldsNotNull(auto.Current))
+					{
+						UpdateCar(auto.Current);
+					}
                 }
                 auto.IsDirty = false;
             });
@@ -134,8 +139,13 @@ namespace AutoReservation.Wpf.Model {
 				}
 				else if (customer.IsNew)
 				{
-					AddCustomer(customer.Current);
-					customer.IsNew = false;
+					if(CustomerFieldsNotNull(customer.Current)){
+						AddCustomer(customer.Current);
+						customer.IsNew = false;
+					}else{
+						MarkNotFilledFields();
+					}
+
 				}
 				else if (customer.IsDeleted)
 				{
@@ -144,7 +154,11 @@ namespace AutoReservation.Wpf.Model {
 				}
 				else
 				{
-					UpdateCustomer(customer.Current);
+					if(CustomerFieldsNotNull(customer.Current)){
+						UpdateCustomer(customer.Current);
+					}else{
+						MarkNotFilledFields();
+					}
 				}
 				customer.IsDirty = false;
 			});
@@ -155,6 +169,23 @@ namespace AutoReservation.Wpf.Model {
 
 		#endregion
 
+		private bool CarFieldsNotNull(AutoDto auto){
+			return (auto.Marke != null);
+		}
+
+		private bool CustomerFieldsNotNull(KundeDto kunde){
+			return (kunde.Vorname != null)
+				&& (kunde.Nachname != null)
+				&& (kunde.Geburtsdatum != null);
+		}
+
+		private bool ReservationFieldsNotNull(ReservationDto reservation){
+			return false;
+		}
+
+		public void MarkNotFilledFields(){
+
+		}
 
 		public void SaveAllChanges()
         {

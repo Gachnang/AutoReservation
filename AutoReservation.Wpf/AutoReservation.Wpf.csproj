@@ -103,6 +103,7 @@
     <Compile Include="View\Window\ViewModel\AutoTabModel.cs" />
     <Compile Include="View\Window\ViewModel\CustomerTabModel.cs" />
     <Compile Include="View\Window\ViewModel\MainViewModel.cs" />
+    <Compile Include="View\Window\ViewModel\ReservationTabModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\Extension.cs" />

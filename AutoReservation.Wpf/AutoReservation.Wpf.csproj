@@ -97,8 +97,11 @@
     <Compile Include="View\Window\OverviewTap.xaml.cs">
       <DependentUpon>OverviewTap.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Window\ViewModel\ReservationTabModel.cs" />
+    <Compile Include="View\Window\CustomerTab.xaml.cs">
+      <DependentUpon>CustomerTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Window\ViewModel\AutoTabModel.cs" />
+    <Compile Include="View\Window\ViewModel\CustomerTabModel.cs" />
     <Compile Include="View\Window\ViewModel\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +140,10 @@
     <Page Include="View\Theme\System.Windows.TabItem.xaml">
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Window\CustomerTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

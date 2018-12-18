@@ -31,7 +31,6 @@ namespace AutoReservation.Common.DataTransferObjects
         public AutoDto Auto {
             get => _auto;
             set {
-                Debug.Assert(value is AutoDto);
                 SetProperty(ref _auto, value);
             }
         }
@@ -44,7 +43,6 @@ namespace AutoReservation.Common.DataTransferObjects
         public KundeDto Kunde {
             get => _kunde;
             set {
-                Debug.Assert(value is KundeDto);
                 SetProperty(ref _kunde, value);
             }
         }

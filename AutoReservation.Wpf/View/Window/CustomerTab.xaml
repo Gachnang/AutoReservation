@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="AutoReservation.Wpf.View.Window.CustomerTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:watermarkTextBox="clr-namespace:AutoReservation.Wpf.View.Control.WatermarkTextBox"
+             xmlns:viewModel="clr-namespace:AutoReservation.Wpf.View.Window.ViewModel"
+             xmlns:gridViewSorter="clr-namespace:AutoReservation.Wpf.View.Control.GridViewSorter"
+             xmlns:common="clr-namespace:AutoReservation.Common.DataTransferObjects;assembly=AutoReservation.Common"
+             xmlns:logic="clr-namespace:AutoReservation.Wpf.Logic"
+             xmlns:control="clr-namespace:AutoReservation.Wpf.View.Control"
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModel:CustomerTabModel, IsDesignTimeCreatable=True}">
+	<DockPanel
+        VerticalAlignment="Stretch"
+        HorizontalAlignment="Stretch"
+        d:DesignHeight="800" d:DesignWidth="1200">
+
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+			<gridViewSorter:GridViewSorter
+                x:Name="Selector"
+                Grid.Row="0"
+                ItemsSource="{Binding Kunden, UpdateSourceTrigger=PropertyChanged}"
+                IsSynchronizedWithCurrentItem="True"
+                SelectedItem="{Binding Path=SelectedKunde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+				<gridViewSorter:GridViewSorter.Columns>
+					<GridViewColumn Header="" DisplayMemberBinding="{Binding Path=Label}" />
+					<GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Current.Id}" />
+					<GridViewColumn Header="Vorname" DisplayMemberBinding="{Binding Path=Current.Vorname}" />
+					<GridViewColumn Header="Nachname" DisplayMemberBinding="{Binding Path=Current.Nachname}" />
+					<GridViewColumn Header="Geburtsdatum" DisplayMemberBinding="{Binding Path=Current.Geburtsdatum}" />
+				</gridViewSorter:GridViewSorter.Columns>
+			</gridViewSorter:GridViewSorter>
+			<StackPanel Orientation="Horizontal"
+                        Grid.Row="1">
+				<Button Content="Save all changes" x:Name="BtnSave" Click="BtnSave_OnClick"
+                        Margin="2" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />
+				<Button Content="Add new Customer" x:Name="BtnAdd" Click="BtnAdd_OnClick"
+                        Margin="3 2 3 2" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />
+				<Button Content="{control:SwitchBinding SelectedKunde.IsDeleted, 'Restore selected customer', 'Delete selected customer'}" x:Name="BtnDelete" Click="BtnDel_OnClick"
+                        Margin="2" IsEnabled="{Binding SelectedKunde}" Height="36" VerticalAlignment="Bottom" />
+			</StackPanel>
+		</Grid>
+		<StackPanel Margin="8">
+			<watermarkTextBox:WatermarkTextBox
+                Margin="10"
+                WatermarkContent="Identification"
+                x:Name="WtbId" IsReadOnly="True"
+                Text="{Binding SelectedKunde.Current.Id, UpdateSourceTrigger=PropertyChanged}" />
+
+			<watermarkTextBox:WatermarkTextBox
+                Margin="10"
+                WatermarkContent="Vorname"
+                x:Name="WtbVorname"
+                Text="{Binding SelectedKunde.Current.Vorname, UpdateSourceTrigger=PropertyChanged}" />
+
+			<watermarkTextBox:WatermarkTextBox
+                Margin="10"
+                WatermarkContent="Nachname"
+                x:Name="WtbNachname"
+                Text="{Binding SelectedKunde.Current.Nachname, UpdateSourceTrigger=PropertyChanged}"
+                PreviewTextInput="Wtb_OnPreviewTextInput" />
+
+			<watermarkTextBox:WatermarkTextBox
+                Margin="10"
+                WatermarkContent="Geburtsdatum"
+                x:Name="WtbGeburtsdatum"
+                Text="{Binding SelectedKunde.Current.Geburtsdatum, UpdateSourceTrigger=PropertyChanged}"
+                PreviewTextInput="Wtb_OnPreviewTextInput" />
+		</StackPanel>
+	</DockPanel>
+</UserControl>

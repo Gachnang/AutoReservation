@@ -7,7 +7,6 @@ using System.Text;
 using System.Windows;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Extensions;
-using AutoReservation.Common.Interfaces;
 using AutoReservation.Wpf.Model;
 
 namespace AutoReservation.Wpf.View.Window.ViewModel {
@@ -42,7 +41,6 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
 
         public void Save() {
             //Repository.UpdateCar(SelectedAuto);

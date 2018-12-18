@@ -66,20 +66,31 @@ namespace AutoReservation.Service.Wcf.Testing
         [Fact]
         public void GetAutoByIdTest()
         {
-            throw new NotImplementedException("Test not implemented.");
+			LuxusklasseAuto auto = new LuxusklasseAuto { Id = 3, Marke = "Audi S6", Tagestarif = 180, Basistarif = 50 };
+			LuxusklasseAuto resultAuto = (LuxusklasseAuto)Target.GetCar(auto.Id).ConvertToEntity();
+			Assert.Equal(auto.AutoKlasseId, resultAuto.AutoKlasseId);
+			Assert.Equal(auto.Marke, resultAuto.Marke);
+			Assert.Equal(auto.Tagestarif, resultAuto.Tagestarif);
         }
 
         [Fact]
         public void GetKundeByIdTest()
         {
-            throw new NotImplementedException("Test not implemented.");
+			Kunde kunde = new Kunde { Id = 3, Nachname = "Pfahl", Vorname = "Martha", Geburtsdatum = new DateTime(1990, 07, 03) };
+			Kunde resultKunde = (Kunde)Target.GetCustomer(kunde.Id).ConvertToEntity();
+			Assert.Equal(kunde.Vorname, resultKunde.Vorname);
+			Assert.Equal(kunde.Nachname, resultKunde.Nachname);
+			Assert.Equal(kunde.Geburtsdatum, resultKunde.Geburtsdatum);
         }
 
         [Fact]
         public void GetReservationByNrTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			Reservation reservation = new Reservation { ReservationsNr = 2, AutoId = 2, KundeId = 2, Von = new DateTime(2020, 01, 10), Bis = new DateTime(2020, 01, 20) };
+			Reservation resultReservation = Target.GetReservation(reservation.ReservationsNr).ConvertToEntity();
+			Assert.Equal(reservation.Kunde, resultReservation.Kunde);
+			Assert.Equal(reservation.Auto, resultReservation.Auto);
+		}
 
         #endregion
 
@@ -88,13 +99,14 @@ namespace AutoReservation.Service.Wcf.Testing
         [Fact]
         public void GetAutoByIdWithIllegalIdTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			//TODO: What do we do with an illegal ID? We're not throwing an exception.
+			Assert.Throws<ArgumentException>(() => Target.GetCar(-1));
+		}
 
         [Fact]
         public void GetKundeByIdWithIllegalIdTest()
         {
-            throw new NotImplementedException("Test not implemented.");
+			Assert.Throws<ArgumentException>(() => Target.GetCustomer(-1));
         }
 
         [Fact]
@@ -110,20 +122,35 @@ namespace AutoReservation.Service.Wcf.Testing
         [Fact]
         public void InsertAutoTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			LuxusklasseAuto auto = new LuxusklasseAuto {Marke = "Audi C4", Tagestarif = 1337, Basistarif = 101 };
+			Target.AddCar(auto.ConvertToDto());
+			LuxusklasseAuto resultAuto = (LuxusklasseAuto)Target.GetCar(5).ConvertToEntity();
+			Assert.Equal(auto.AutoKlasseId, resultAuto.AutoKlasseId);
+			Assert.Equal(auto.Marke, resultAuto.Marke);
+			Assert.Equal(auto.Tagestarif, resultAuto.Tagestarif);
+		}
 
         [Fact]
         public void InsertKundeTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			Kunde kunde = new Kunde {Nachname = "Grey", Vorname = "Kuma", Geburtsdatum = new DateTime(666, 06, 06) };
+			Target.AddCustomer(kunde.ConvertToDto());
+			Kunde resultKunde = Target.GetCustomer(5).ConvertToEntity();
+			Assert.Equal(kunde.Vorname, resultKunde.Vorname);
+			Assert.Equal(kunde.Nachname, resultKunde.Nachname);
+			Assert.Equal(kunde.Geburtsdatum, resultKunde.Geburtsdatum);
+		}
 
         [Fact]
         public void InsertReservationTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			//TODO: Throws Exception
+			Reservation reservation = new Reservation {AutoId = 4, KundeId = 4, Von = new DateTime(2020, 01, 10), Bis = new DateTime(3020, 01, 20) };
+			Target.AddReservation(reservation.ConvertToDto());			
+			Reservation resultReservation = Target.GetReservation(5).ConvertToEntity();
+			Assert.Equal(reservation.Kunde, resultReservation.Kunde);
+			Assert.Equal(reservation.Auto, resultReservation.Auto);
+		}
 
         #endregion
 
@@ -132,8 +159,14 @@ namespace AutoReservation.Service.Wcf.Testing
         [Fact]
         public void DeleteAutoTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			LuxusklasseAuto auto = new LuxusklasseAuto { Marke = "Audi C5", Tagestarif = 1337, Basistarif = 101 };
+			Target.AddCar(auto.ConvertToDto());
+			Target.DeleteCar(auto.ConvertToDto());
+			LuxusklasseAuto resultAuto = (LuxusklasseAuto)Target.GetCar(5).ConvertToEntity();
+			Assert.Equal(auto.AutoKlasseId, resultAuto.AutoKlasseId);
+			Assert.Equal(auto.Marke, resultAuto.Marke);
+			Assert.Equal(auto.Tagestarif, resultAuto.Tagestarif);
+		}
 
         [Fact]
         public void DeleteKundeTest()

@@ -26,11 +26,13 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
             Repository.PropertyChanged += (o, e) => { OnPropertyChanged("Repository"); };
 
             AutoTabModel = new AutoTabModel(this);
+			CustomerTabModel = new CustomerTabModel(this);
             ReservationTabModel = new ReservationTabModel(this);
         }
 
         public AutoReservationRepository Repository { get; }
         public AutoTabModel AutoTabModel { get; }
+		public CustomerTabModel CustomerTabModel { get; }
         public ReservationTabModel ReservationTabModel { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;

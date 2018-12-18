@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -15,7 +15,7 @@ namespace AutoReservation.Wpf.View.Window.ViewModel
 		private readonly MainViewModel _mainViewModel;
 		private AutoReservationRepository Repository => _mainViewModel.Repository;
 
-		private AutoDto _selectedAuto;
+		private ChangeTracker<KundeDto> _selectedKunde;
 
 		public CustomerTabModel()
 		{
@@ -36,14 +36,14 @@ namespace AutoReservation.Wpf.View.Window.ViewModel
 			_mainViewModel = mainViewModel;
 		}
 
-		public List<AutoDto> Autos => _mainViewModel.Repository?.Autos;
+		public ObservableCollection<ChangeTracker<KundeDto>> Kunden => _mainViewModel.Repository?.Kunden;
 
-		public AutoDto SelectedAuto
+		public ChangeTracker<KundeDto> SelectedKunde
 		{
-			get => _selectedAuto;
+			get => _selectedKunde;
 			set
 			{
-				_selectedAuto = value;
+				_selectedKunde = value;
 				OnPropertyChanged();
 			}
 		}
@@ -53,10 +53,10 @@ namespace AutoReservation.Wpf.View.Window.ViewModel
 
 		public void Save()
 		{
-			//Repository.UpdateCar(SelectedAuto);
+			//Repository.UpdateCustomer(SelectedKunde);
 			try
 			{
-				Repository.SaveCarChanges();
+				Repository.SaveCustomerChanges();
 			}
 			catch (Exception e)
 			{

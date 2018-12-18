@@ -20,5 +20,10 @@
         <TabItem Header="Autos">
             <window:AutoTab DataContext="{Binding Path=AutoTabModel, UpdateSourceTrigger=PropertyChanged}" />
         </TabItem>
+		<TabItem Header="Kunden">
+			<window:CustomerTab DataContext="{Binding Path=CustomerTabModel, UpdateSourceTrigger=PropertyChanged}"/>
+		</TabItem>
+		<TabItem Header="Reservationen">
+		</TabItem>
     </TabControl>
 </Window>

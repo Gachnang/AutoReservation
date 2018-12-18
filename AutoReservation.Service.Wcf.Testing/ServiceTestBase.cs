@@ -13,6 +13,8 @@ namespace AutoReservation.Service.Wcf.Testing
     {
         protected abstract IAutoReservationService Target { get; }
 
+
+
         #region Read all entities
 
         [Fact]

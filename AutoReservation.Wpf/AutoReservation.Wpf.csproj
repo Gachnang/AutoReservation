@@ -69,7 +69,6 @@
     </Compile>
     <Compile Include="Logic\EnumerationExtension.cs" />
     <Compile Include="Model\AutoReservationRepository.cs" />
-    <Compile Include="Model\AutoReservationServiceCallback.cs" />
     <Compile Include="Model\ChangeTracker.cs" />
     <Compile Include="Model\RepositoryException.cs" />
     <Compile Include="View\Control\Animation\BrushAnimation.cs" />

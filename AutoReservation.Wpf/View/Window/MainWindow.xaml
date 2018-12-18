@@ -23,7 +23,8 @@
 		<TabItem Header="Kunden">
 			<window:CustomerTab DataContext="{Binding Path=CustomerTabModel, UpdateSourceTrigger=PropertyChanged}"/>
 		</TabItem>
-		<TabItem Header="Reservationen">
-		</TabItem>
+        <TabItem Header="Reservationen">
+            <window:ReservationTab DataContext="{Binding Path=ReservationTabModel, UpdateSourceTrigger=PropertyChanged}" />
+        </TabItem>
     </TabControl>
 </Window>

@@ -13,7 +13,7 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
         private readonly MainViewModel _mainViewModel;
         private AutoReservationRepository Repository => _mainViewModel.Repository;
 
-        private AutoDto _selectedAuto;
+        private ChangeTracker<AutoDto> _selectedAuto;
 
         public AutoTabModel() {
             if ((bool) DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue) {
@@ -29,9 +29,9 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
             _mainViewModel = mainViewModel;
         }
 
-        public List<AutoDto> Autos => _mainViewModel.Repository?.Autos;
+        public ObservableCollection<ChangeTracker<AutoDto>> Autos => _mainViewModel.Repository?.Autos;
 
-        public AutoDto SelectedAuto {
+        public ChangeTracker<AutoDto> SelectedAuto {
             get => _selectedAuto;
             set {
                 _selectedAuto = value;

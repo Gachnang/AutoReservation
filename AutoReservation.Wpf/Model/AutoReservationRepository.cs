@@ -16,7 +16,9 @@ using System.ServiceModel;
 namespace AutoReservation.Wpf.Model {    
     public class AutoReservationRepository : INotifyPropertyChanged {
         private readonly ObservableCollection<ChangeTracker<AutoDto>> _autos;
+        private readonly ObservableCollection<ChangeTracker<ReservationDto>> _reservationen;
         public ObservableCollection<ChangeTracker<AutoDto>> Autos => _autos; //.Select(auto => auto.Current).ToList();
+        public ObservableCollection<ChangeTracker<ReservationDto>> Reservationen => _reservationen;
 
         private IAutoReservationService target;
 
@@ -30,6 +32,7 @@ namespace AutoReservation.Wpf.Model {
             
             // TODO: Repair Real connection
             _autos = new ObservableCollection<ChangeTracker<AutoDto>>(target.GetAllCars().Select(auto => new ChangeTracker<AutoDto>(auto)));
+            _reservationen = new ObservableCollection<ChangeTracker<ReservationDto>>(target.GetAllReservations().Select(reservation => new ChangeTracker<ReservationDto>(reservation)));
         }
 
         private void AddCar(AutoDto car) {

@@ -85,6 +85,9 @@
     <Compile Include="View\Control\WatermarkTextBox\WatermarkBehavior.cs" />
     <Compile Include="View\Control\WatermarkTextBox\WatermarkTextBox.cs" />
     <Compile Include="View\Theme\ThemeProperties.cs" />
+    <Compile Include="View\Window\ReservationTab.xaml.cs">
+      <DependentUpon>ReservationTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Window\AutoTab.xaml.cs">
       <DependentUpon>AutoTab.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,7 @@
     <Compile Include="View\Window\OverviewTap.xaml.cs">
       <DependentUpon>OverviewTap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Window\ViewModel\ReservationTabModel.cs" />
     <Compile Include="View\Window\ViewModel\AutoTabModel.cs" />
     <Compile Include="View\Window\ViewModel\MainViewModel.cs" />
   </ItemGroup>
@@ -120,6 +124,7 @@
     <None Include="..\Assets\App.config">
       <Link>App.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -188,6 +193,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Theme\System.Windows.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Window\ReservationTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

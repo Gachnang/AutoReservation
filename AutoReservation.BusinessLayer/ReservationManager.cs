@@ -99,7 +99,7 @@ namespace AutoReservation.BusinessLayer
 
 		public bool InRangeCheck(Reservation reservation)
 		{
-			return (reservation.Von.AddHours(24).CompareTo(reservation.Bis) < 0);
+            return (reservation.Von.AddHours(24).CompareTo(reservation.Bis) <= 0);
 		}
 
 		private bool CarAvailable(AutoReservationContext context, Reservation reservation)

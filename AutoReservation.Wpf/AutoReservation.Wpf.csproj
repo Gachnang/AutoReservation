@@ -94,6 +94,7 @@
       <DependentUpon>OverviewTap.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Window\ViewModel\AutoTabModel.cs" />
+    <Compile Include="View\Window\ViewModel\CustomerTabModel.cs" />
     <Compile Include="View\Window\ViewModel\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

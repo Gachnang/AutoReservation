@@ -134,9 +134,8 @@ namespace AutoReservation.Service.Wcf.Testing
         public void InsertKundeTest()
         {
 			Kunde kunde = new Kunde {Nachname = "Grey", Vorname = "Kuma", Geburtsdatum = new DateTime(666, 06, 06) };
-			//TODO: Throws Nullpointer exception for context
 			Target.AddCustomer(kunde.ConvertToDto());
-			Kunde resultKunde = (Kunde)Target.GetCustomer(5).ConvertToEntity();
+			Kunde resultKunde = Target.GetCustomer(5).ConvertToEntity();
 			Assert.Equal(kunde.Vorname, resultKunde.Vorname);
 			Assert.Equal(kunde.Nachname, resultKunde.Nachname);
 			Assert.Equal(kunde.Geburtsdatum, resultKunde.Geburtsdatum);
@@ -145,7 +144,8 @@ namespace AutoReservation.Service.Wcf.Testing
         [Fact]
         public void InsertReservationTest()
         {
-			Reservation reservation = new Reservation {AutoId = 7, KundeId = 6, Von = new DateTime(2020, 01, 10), Bis = new DateTime(3020, 01, 20) };
+			//TODO: Throws Exception
+			Reservation reservation = new Reservation {AutoId = 4, KundeId = 4, Von = new DateTime(2020, 01, 10), Bis = new DateTime(3020, 01, 20) };
 			Target.AddReservation(reservation.ConvertToDto());			
 			Reservation resultReservation = Target.GetReservation(5).ConvertToEntity();
 			Assert.Equal(reservation.Kunde, resultReservation.Kunde);
@@ -159,8 +159,14 @@ namespace AutoReservation.Service.Wcf.Testing
         [Fact]
         public void DeleteAutoTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			LuxusklasseAuto auto = new LuxusklasseAuto { Marke = "Audi C5", Tagestarif = 1337, Basistarif = 101 };
+			Target.AddCar(auto.ConvertToDto());
+			Target.DeleteCar(auto.ConvertToDto());
+			LuxusklasseAuto resultAuto = (LuxusklasseAuto)Target.GetCar(5).ConvertToEntity();
+			Assert.Equal(auto.AutoKlasseId, resultAuto.AutoKlasseId);
+			Assert.Equal(auto.Marke, resultAuto.Marke);
+			Assert.Equal(auto.Tagestarif, resultAuto.Tagestarif);
+		}
 
         [Fact]
         public void DeleteKundeTest()

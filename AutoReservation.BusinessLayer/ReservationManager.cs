@@ -31,7 +31,7 @@ namespace AutoReservation.BusinessLayer
 			}
 		}
 
-		public void InsertReservation(Reservation reservation)
+		public int InsertReservation(Reservation reservation)
 		{
 			using (AutoReservationContext context = new AutoReservationContext())
 			{
@@ -47,13 +47,14 @@ namespace AutoReservation.BusinessLayer
 				{
 					context.Entry(reservation).State = EntityState.Added;
 					context.SaveChanges();
+                    return reservation.ReservationsNr;
 				}
 			}
 		}
 
 
 
-		public void UpdateReservation(Reservation reservation)
+		public bool UpdateReservation(Reservation reservation)
 		{
 			using (AutoReservationContext context = new AutoReservationContext())
 			{
@@ -65,35 +66,52 @@ namespace AutoReservation.BusinessLayer
 				{
 					throw new AutoUnavailableException("Error while inserting", reservation);
 				}
-				else
-				{
-					context.Entry(reservation).State = EntityState.Modified;
-					try
-					{
-						context.SaveChanges();
-					}
-					catch (DbUpdateConcurrencyException)
-					{
-						throw CreateOptimisticConcurrencyException(context, reservation);
-					}
+                else
+                { 
+                    if(context.Entry(reservation) != null)
+                    {
+                        context.Entry(reservation).State = EntityState.Modified;
+					    try
+					    {
+						    context.SaveChanges();
+                            return true;
+					    }
+					    catch (DbUpdateConcurrencyException)
+					    {
+						    throw CreateOptimisticConcurrencyException(context, reservation);
+					    }
+                    }
+                    else
+                    {
+                        return false;
+                    }
 				}
 			}
 		}
 
-		public void DeleteReservation(Reservation reservation)
+		public bool DeleteReservation(Reservation reservation)
 		{
 			using (AutoReservationContext context = new AutoReservationContext())
 			{
-				context.Entry(reservation).State = EntityState.Deleted;
-				try
-				{
-					context.SaveChanges();
-				}
-				catch (Exception e)
-				{
-					Console.WriteLine(e);
-					throw;
-				}
+                if(context.Entry(reservation) != null)
+                {
+                    context.Entry(reservation).State = EntityState.Deleted;
+				    try
+				    {
+					    context.SaveChanges();
+                        return true;
+				    }
+				    catch (Exception e)
+				    {
+					    Console.WriteLine(e);
+					    throw;
+				    }
+                }
+                else
+                {
+                    return false;
+                }
+				
 			}
 		}
 

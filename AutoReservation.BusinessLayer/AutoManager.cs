@@ -41,30 +41,47 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public void UpdateAuto(Auto auto)
+        public bool UpdateAuto(Auto auto)
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {
-                context.Entry(auto).State = EntityState.Modified;
+                if(context.Entry(auto) != null)
+                {
+                    context.Entry(auto).State = EntityState.Modified;
                 
-                try
-                {
-                    context.SaveChanges();
+                    try
+                    {
+                        context.SaveChanges();
+                        return true;
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        throw CreateOptimisticConcurrencyException(context, auto);
+                    }
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    throw CreateOptimisticConcurrencyException(context, auto);
+                    return false;
                 }
             }
         }
 
-        public void DeleteAuto(Auto auto)
+        public bool DeleteAuto(Auto auto)
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {
-                context.Entry(auto).State = EntityState.Deleted;
+                if (context.Entry(auto) != null)
+                {
+                    context.Entry(auto).State = EntityState.Deleted;
                 
-                context.SaveChanges();
+                    context.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }   
             }
         }
     }

@@ -38,7 +38,7 @@ namespace AutoReservation.Wpf.Model {
 		#region Car Functions
 		private void AddCar(AutoDto car) {
             try {
-                target.AddCar(car);
+                car.Id = target.AddCar(car);
             } catch (Exception e) {
                 throw new RepositoryException("Auto konnte nicht hinzugefügt werden.", e);
             }

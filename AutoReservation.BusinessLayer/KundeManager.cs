@@ -29,12 +29,20 @@ namespace AutoReservation.BusinessLayer
             }
         }
         
-        public void DeleteKunde (Kunde kunde)
+        public bool DeleteKunde (Kunde kunde)
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {
-                context.Entry<Kunde>(kunde).State = EntityState.Deleted;
-                context.SaveChanges();
+                if(context.Entry(kunde) != null)
+                {
+                    context.Entry<Kunde>(kunde).State = EntityState.Deleted;
+                    context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -48,18 +56,26 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public void UpdateKunde (Kunde kunde)
+        public bool UpdateKunde (Kunde kunde)
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {
-                context.Entry<Kunde>(kunde).State = EntityState.Modified;
-                try
+                if(context.Entry(kunde) != null)
                 {
-                    context.SaveChanges();
+                    context.Entry<Kunde>(kunde).State = EntityState.Modified;
+                    try
+                    {
+                        context.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        throw CreateOptimisticConcurrencyException<Kunde>(context, kunde);
+                    }
+                    return true;
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    throw CreateOptimisticConcurrencyException<Kunde>(context, kunde);
+                    return false;
                 }
             }
         }

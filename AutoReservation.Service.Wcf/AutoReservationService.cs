@@ -15,11 +15,10 @@ namespace AutoReservation.Service.Wcf
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class AutoReservationService : IAutoReservationService
     {
-        private bool InvokeDb(Action op) {
+        private T InvokeDb<T>(Func<T> op) {
 
             try {
-                op();
-                return true;
+                return op();
             } catch (ArgumentException) {
                 ConverterFault fault = new ConverterFault() {
                     Operation = ActualMethod,
@@ -50,22 +49,22 @@ namespace AutoReservation.Service.Wcf
         private static void WriteActualMethod()
         => Console.WriteLine($"Calling: {ActualMethod}");
 
-        public void AddCar(AutoDto car)
+        public int AddCar(AutoDto car)
         {
             WriteActualMethod();
-            InvokeDb(() => new AutoManager().InsertAuto(DtoConverter.ConvertToEntity(car)));
+            return InvokeDb(() => new AutoManager().InsertAuto(DtoConverter.ConvertToEntity(car)));
         }
 
-        public void AddCustomer(KundeDto customer)
+        public int AddCustomer(KundeDto customer)
         {
             WriteActualMethod();
-            InvokeDb(() => new KundeManager().InsertKunde(DtoConverter.ConvertToEntity(customer)));
+            return InvokeDb(() => new KundeManager().InsertKunde(DtoConverter.ConvertToEntity(customer)));
         }
 
-        public void AddReservation(ReservationDto reservation)
+        public int AddReservation(ReservationDto reservation)
         {
             WriteActualMethod();
-            InvokeDb(() => new ReservationManager().InsertReservation(DtoConverter.ConvertToEntity(reservation)));
+            return InvokeDb(() => new ReservationManager().InsertReservation(DtoConverter.ConvertToEntity(reservation)));
         }
 
         public bool CarAvailable()
@@ -76,22 +75,22 @@ namespace AutoReservation.Service.Wcf
             throw new NotImplementedException();
         }
 
-        public void DeleteCar(AutoDto car)
+        public bool DeleteCar(AutoDto car)
         {
             WriteActualMethod();
-            InvokeDb(() => new AutoManager().DeleteAuto(DtoConverter.ConvertToEntity(car))); ;
+            return InvokeDb(() => new AutoManager().DeleteAuto(DtoConverter.ConvertToEntity(car))); ;
         }
 
-        public void DeleteCustomer(KundeDto customer)
+        public bool DeleteCustomer(KundeDto customer)
         {
             WriteActualMethod();
-            InvokeDb(() => new KundeManager().DeleteKunde(DtoConverter.ConvertToEntity(customer)));
+            return InvokeDb(() => new KundeManager().DeleteKunde(DtoConverter.ConvertToEntity(customer)));
         }
 
-        public void DeleteReservation(ReservationDto reservation)
+        public bool DeleteReservation(ReservationDto reservation)
         {
             WriteActualMethod();
-            InvokeDb(() => new ReservationManager().DeleteReservation(DtoConverter.ConvertToEntity(reservation)));
+            return InvokeDb(() => new ReservationManager().DeleteReservation(DtoConverter.ConvertToEntity(reservation)));
         }
 
         public List<AutoDto> GetAllCars() {
@@ -130,22 +129,22 @@ namespace AutoReservation.Service.Wcf
             return DtoConverter.ConvertToDto(manager.GetReservation(id));
         }
 
-        public void UpdateCar(AutoDto car)
+        public bool UpdateCar(AutoDto car)
         {
             WriteActualMethod();
-            InvokeDb(() => new AutoManager().UpdateAuto(DtoConverter.ConvertToEntity(car)));
+            return InvokeDb(() => new AutoManager().UpdateAuto(DtoConverter.ConvertToEntity(car)));
         }
 
-        public void UpdateCustomer(KundeDto customer)
+        public bool UpdateCustomer(KundeDto customer)
         {
             WriteActualMethod();
-            InvokeDb(() => new KundeManager().UpdateKunde(DtoConverter.ConvertToEntity(customer)));
+            return InvokeDb(() => new KundeManager().UpdateKunde(DtoConverter.ConvertToEntity(customer)));
         }
 
-        public void UpdateReservation(ReservationDto reservation)
+        public bool UpdateReservation(ReservationDto reservation)
         {
             WriteActualMethod();
-            InvokeDb(() => new ReservationManager().UpdateReservation(DtoConverter.ConvertToEntity(reservation)));
+            return InvokeDb(() => new ReservationManager().UpdateReservation(DtoConverter.ConvertToEntity(reservation)));
         }
     }
 }

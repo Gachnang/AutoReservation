@@ -26,7 +26,7 @@ namespace AutoReservation.Wpf.View.Window {
 
         private void BtnAdd_OnClick(object sender, RoutedEventArgs e) {
             ChangeTracker<AutoDto> auto = new ChangeTracker<AutoDto>(new AutoDto() {
-                Id = -1,
+                Id = 0,
                 Marke = "NEW"
             })
             { 

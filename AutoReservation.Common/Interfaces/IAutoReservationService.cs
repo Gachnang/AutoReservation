@@ -20,17 +20,17 @@ namespace AutoReservation.Common.Interfaces
         [OperationContract]
         [FaultContract(typeof(DbFault))]
         [FaultContract(typeof(ConverterFault))]
-        void DeleteCar(AutoDto car);
+        bool DeleteCar(AutoDto car);
 
         [OperationContract]
         [FaultContract(typeof(DbFault))]
         [FaultContract(typeof(ConverterFault))]
-        void UpdateCar(AutoDto car);
+        bool UpdateCar(AutoDto car);
 
         [OperationContract]
         [FaultContract(typeof(DbFault))]
         [FaultContract(typeof(ConverterFault))]
-        void AddCar(AutoDto car);
+        int AddCar(AutoDto car);
         #endregion
 
         #region CRUD Operations Customer
@@ -42,15 +42,15 @@ namespace AutoReservation.Common.Interfaces
 
         [OperationContract]
         [FaultContract(typeof(DbFault))]
-        void DeleteCustomer(KundeDto customer);
+        bool DeleteCustomer(KundeDto customer);
 
         [OperationContract]
         [FaultContract(typeof(DbFault))]
-        void UpdateCustomer(KundeDto customer);
+        bool UpdateCustomer(KundeDto customer);
 
         [OperationContract]
         [FaultContract(typeof(DbFault))]
-        void AddCustomer(KundeDto customer);
+        int AddCustomer(KundeDto customer);
 
         #endregion
 
@@ -63,15 +63,15 @@ namespace AutoReservation.Common.Interfaces
 
         [OperationContract]
         [FaultContract(typeof(DbFault))]
-        void DeleteReservation(ReservationDto reservation);
+        bool DeleteReservation(ReservationDto reservation);
 
         [OperationContract]
         [FaultContract(typeof(DbFault))]
-        void UpdateReservation(ReservationDto reservation);
+        bool UpdateReservation(ReservationDto reservation);
 
         [OperationContract]
         [FaultContract(typeof(DbFault))]
-        void AddReservation(ReservationDto reservation);
+        int AddReservation(ReservationDto reservation);
 
         //Check if Car is available
         [OperationContract]

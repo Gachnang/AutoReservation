@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using AutoReservation.Wpf.Logic;
 
 namespace AutoReservation.Wpf.View.Control.ListViewSorter {
     public class ListViewSorterBase : ListView {
@@ -81,11 +83,10 @@ namespace AutoReservation.Wpf.View.Control.ListViewSorter {
             }
 
             public int Compare(object x, object y) {
-                PropertyInfo pi = x.GetType().GetProperty(_sortPropertyName);
-                if (pi != null) {
-                    object value1 = pi.GetValue(x);
-                    object value2 = pi.GetValue(y);
+                object value1 = x.GetPropValue(_sortPropertyName);
+                object value2 = y.GetPropValue(_sortPropertyName);
 
+                if (value1 != null && value2 != null) {
                     bool valuesAreNotSortable = !(value1 is IComparable) || !(value2 is IComparable);
                     if (valuesAreNotSortable) {
                         return 0;

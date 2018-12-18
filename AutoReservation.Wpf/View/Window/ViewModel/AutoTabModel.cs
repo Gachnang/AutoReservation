@@ -31,7 +31,7 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
             _mainViewModel = mainViewModel;
         }
 
-        public List<ChangeTracker<AutoDto>> Autos => _mainViewModel.Repository?.Autos;
+        public ObservableCollection<ChangeTracker<AutoDto>> Autos => _mainViewModel.Repository?.Autos;
 
         public ChangeTracker<AutoDto> SelectedAuto {
             get => _selectedAuto;

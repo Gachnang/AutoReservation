@@ -81,6 +81,7 @@
     <Compile Include="View\Control\ListViewSorter\ListViewSorterBase.cs" />
     <Compile Include="View\Control\Shadow\Shadow.cs" />
     <Compile Include="View\Control\Shadow\ShadowDepth.cs" />
+    <Compile Include="View\Control\SwitchBinding.cs" />
     <Compile Include="View\Control\WatermarkTextBox\WatermarkBehavior.cs" />
     <Compile Include="View\Control\WatermarkTextBox\WatermarkTextBox.cs" />
     <Compile Include="View\Theme\ThemeProperties.cs" />

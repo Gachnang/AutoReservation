@@ -16,7 +16,7 @@ using System.ServiceModel;
 namespace AutoReservation.Wpf.Model {    
     public class AutoReservationRepository : INotifyPropertyChanged {
         private readonly ObservableCollection<ChangeTracker<AutoDto>> _autos;
-        public List<ChangeTracker<AutoDto>> Autos => _autos.ToList(); //.Select(auto => auto.Current).ToList();
+        public ObservableCollection<ChangeTracker<AutoDto>> Autos => _autos; //.Select(auto => auto.Current).ToList();
 
         private IAutoReservationService target;
 
@@ -67,8 +67,9 @@ namespace AutoReservation.Wpf.Model {
         public void SaveCarChanges()
         {
             _autos.Where(auto => auto.IsDirty).ToList().ForEach(auto => {
-                if (auto.IsNew)
-                {
+                if (auto.IsNew && auto.IsDeleted) {
+                    _autos.Remove(auto);
+                } else if (auto.IsNew) {
                     AddCar(auto.Current);
                     auto.IsNew = false;
                 } else if (auto.IsDeleted)

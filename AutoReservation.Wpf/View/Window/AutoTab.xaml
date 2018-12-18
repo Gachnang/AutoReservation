@@ -8,6 +8,7 @@
              xmlns:gridViewSorter="clr-namespace:AutoReservation.Wpf.View.Control.GridViewSorter"
              xmlns:common="clr-namespace:AutoReservation.Common.DataTransferObjects;assembly=AutoReservation.Common"
              xmlns:logic="clr-namespace:AutoReservation.Wpf.Logic"
+             xmlns:control="clr-namespace:AutoReservation.Wpf.View.Control"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModel:AutoTabModel, IsDesignTimeCreatable=True}">
@@ -29,22 +30,22 @@
                 IsSynchronizedWithCurrentItem="True"
                 SelectedItem="{Binding Path=SelectedAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <gridViewSorter:GridViewSorter.Columns>
-                    <GridViewColumn Header="" DisplayMemberBinding="{Binding Label}" />
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Current.Id}" />
-                    <GridViewColumn Header="Marke" DisplayMemberBinding="{Binding Current.Marke}" />
-                    <GridViewColumn Header="AutoKlasse" DisplayMemberBinding="{Binding Current.AutoKlasse}" />
-                    <GridViewColumn Header="Basistarif" DisplayMemberBinding="{Binding Current.Basistarif}" />
-                    <GridViewColumn Header="Tagestarif" DisplayMemberBinding="{Binding Current.Tagestarif}" />
+                    <GridViewColumn Header="" DisplayMemberBinding="{Binding Path=Label}" />
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Current.Id}" />
+                    <GridViewColumn Header="Marke" DisplayMemberBinding="{Binding Path=Current.Marke}" />
+                    <GridViewColumn Header="AutoKlasse" DisplayMemberBinding="{Binding Path=Current.AutoKlasse}" />
+                    <GridViewColumn Header="Basistarif" DisplayMemberBinding="{Binding Path=Current.Basistarif}" />
+                    <GridViewColumn Header="Tagestarif" DisplayMemberBinding="{Binding Path=Current.Tagestarif}" />
                 </gridViewSorter:GridViewSorter.Columns>
             </gridViewSorter:GridViewSorter>
             <StackPanel Orientation="Horizontal"
                         Grid.Row="1">
                 <Button Content="Save all changes" x:Name="BtnSave" Click="BtnSave_OnClick"
-                        Margin="10" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />
-                <Button Content="Add new car" x:Name="BtnAdd" Click="BtnSave_OnClick"
-                        Margin="10" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />
-                <Button Content="Delete selected car" x:Name="BtnDelete" Click="BtnSave_OnClick"
-                        Margin="10" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />
+                        Margin="2" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />
+                <Button Content="Add new car" x:Name="BtnAdd" Click="BtnAdd_OnClick"
+                        Margin="3 2 3 2" IsEnabled="true" Height="36" VerticalAlignment="Bottom" />
+                <Button Content="{control:SwitchBinding SelectedAuto.IsDeleted, 'Restore selected card', 'Delete selected car'}" x:Name="BtnDelete" Click="BtnDel_OnClick"
+                        Margin="2" IsEnabled="{Binding SelectedAuto}" Height="36" VerticalAlignment="Bottom" />
             </StackPanel>
         </Grid>
         <StackPanel Margin="8">

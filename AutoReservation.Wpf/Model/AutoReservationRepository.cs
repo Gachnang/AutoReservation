@@ -101,7 +101,7 @@ namespace AutoReservation.Wpf.Model {
 		{
 			try
 			{
-				target.AddCustomer(customer);
+				customer.Id = target.AddCustomer(customer);
 			}
 			catch (Exception e)
 			{

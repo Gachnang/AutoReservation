@@ -39,5 +39,13 @@ namespace AutoReservation.Common.DataTransferObjects
 
         //public override string ToString()
         //    => $"{Id}; {Marke}; {Tagestarif}; {Basistarif}; {AutoKlasse}; {RowVersion}";
+		
+		public bool CompareTo(AutoDto other){
+			return this.AutoKlasseId.Equals(other.AutoKlasseId)
+				&& this.Basistarif.Equals(other.Basistarif)
+				&& this.Marke.Equals(other.Marke)
+				&& this.Id.Equals(other.Id)
+				&& this.Tagestarif.Equals(other.Tagestarif);
+		}
     }
 }

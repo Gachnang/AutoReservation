@@ -73,6 +73,9 @@
                 x:Name="WtbGeburtsdatum"
                 Text="{Binding SelectedKunde.Current.Geburtsdatum, UpdateSourceTrigger=PropertyChanged}"
                 PreviewTextInput="Wtb_OnPreviewTextInput" />
+
+			<DatePicker 
+				SelectedDate="{Binding SelectedKunde.Current.Geburtsdatum, UpdateSourceTrigger=PropertyChanged}"/>
 		</StackPanel>
 	</DockPanel>
 </UserControl>

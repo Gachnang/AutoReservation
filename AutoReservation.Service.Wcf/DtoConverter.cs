@@ -121,12 +121,14 @@ namespace AutoReservation.Service.Wcf
         {
             if (entity == null) { return null; }
 
-            return new ReservationDto
-            {
-                ReservationsNr = entity.ReservationsNr,
-                Von = entity.Von,
-                Bis = entity.Bis,
-                RowVersion = entity.RowVersion,
+			return new ReservationDto
+			{
+				ReservationsNr = entity.ReservationsNr,
+				Von = entity.Von,
+				Bis = entity.Bis,
+				RowVersion = entity.RowVersion,
+				AutoId = entity.AutoId,
+				KundeId = entity.KundeId,
                 Auto = ConvertToDto(entity.Auto as Auto),
                 Kunde = ConvertToDto(entity.Kunde as Kunde)
             };

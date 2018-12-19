@@ -61,5 +61,9 @@ namespace AutoReservation.Common.DataTransferObjects
             get => _rowVersion;
             set => SetProperty(ref _rowVersion, value);
         }
+
+		public bool CompareTo(ReservationDto other){
+			return this.Auto.CompareTo(other.Auto) && this.Kunde.CompareTo(other.Kunde);
+		}
     }
 }

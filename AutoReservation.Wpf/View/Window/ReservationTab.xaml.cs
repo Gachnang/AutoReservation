@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using AutoReservation.Common.DataTransferObjects;
@@ -31,8 +32,8 @@ namespace AutoReservation.Wpf.View.Window {
                 Kunde = null,
                 AutoId = 0,
                 KundeId = 0,
-                Von = System.DateTime.Now,
-                Bis = System.DateTime.Now.AddHours(24)
+                Von = DateTime.Now,
+                Bis = DateTime.Now.AddHours(24)
             })
             { 
                 IsDirty = true,

@@ -30,6 +30,9 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
         }
 
         public ObservableCollection<ChangeTracker<ReservationDto>> Reservationen => _mainViewModel.Repository?.Reservationen;
+        public ObservableCollection<ChangeTracker<AutoDto>> Autos => _mainViewModel.Repository?.Autos;
+        public ObservableCollection<ChangeTracker<KundeDto>> Kunden => _mainViewModel.Repository?.Kunden;
+
 
         public ChangeTracker<ReservationDto> SelectedReservation {
             get => _selectedReservation;
@@ -41,11 +44,10 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-
         public void Save() {
-            //Repository.UpdateCar(SelectedAuto);
+            //Repository.UpdateReservation(SelectedReservation);
             try {
-                Repository.SaveCarChanges();
+                Repository.SaveReservationChanges();
             } catch (Exception e) {
                 StringBuilder sb = new StringBuilder("Message:");
                 do {

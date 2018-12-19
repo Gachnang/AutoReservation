@@ -152,14 +152,75 @@ namespace AutoReservation.Wpf.Model {
 				customer.IsDirty = false;
 			});
 		}
-		#endregion
+        #endregion
 
-		#region Reservation Functions
+        #region Reservation Functions
+        private void AddReservation(ReservationDto reservation)
+        {
+            try
+            {
+                reservation.AutoId = reservation.Auto.Id;
+                reservation.KundeId = reservation.Kunde.Id;
+                reservation.ReservationsNr = target.AddReservation(reservation);
+            }
+            catch (Exception e)
+            {
+                throw new RepositoryException("Auto konnte nicht hinzugefügt werden.", e);
+            }
+        }
 
-		#endregion
+        private void UpdateReservation(ReservationDto reservation)
+        {
+            try
+            {
+                target.UpdateReservation(reservation);
+            }
+            catch (Exception e)
+            {
+                throw new RepositoryException("Auto konnte nicht geändert werden.", e);
+            }
+        }
+
+        private void DeleteReservation(ReservationDto reservation)
+        {
+            try
+            {
+                target.DeleteReservation(reservation);
+            }
+            catch (Exception e)
+            {
+                throw new RepositoryException("Auto konnte nicht gelöscht werden.", e);
+            }
+        }
+
+        public void SaveReservationChanges()
+        {
+            _reservationen.Where(reservation => reservation.IsDirty).ToList().ForEach(reservation => {
+                if (reservation.IsNew && reservation.IsDeleted)
+                {
+                    _reservationen.Remove(reservation);
+                }
+                else if (reservation.IsNew)
+                {
+                    AddReservation(reservation.Current);
+                    reservation.IsNew = false;
+                }
+                else if (reservation.IsDeleted)
+                {
+                    DeleteReservation(reservation.Current);
+                    _reservationen.Remove(reservation);
+                }
+                else
+                {
+                    UpdateReservation(reservation.Current);
+                }
+                reservation.IsDirty = false;
+            });
+        }
+        #endregion
 
 
-		public void SaveAllChanges()
+        public void SaveAllChanges()
         {
             SaveCarChanges();
         }

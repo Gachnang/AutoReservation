@@ -31,11 +31,19 @@
                 SelectedItem="{Binding Path=SelectedReservation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <gridViewSorter:GridViewSorter.Columns>
                     <GridViewColumn Header="" DisplayMemberBinding="{Binding Path=Label}" />
-                    <GridViewColumn Header="Reservationsnummmer" DisplayMemberBinding="{Binding Path=Current.ReservationsNr}" />
-                    <GridViewColumn Header="Kundennamen" DisplayMemberBinding="{Binding Path=Current.Kunde.Nachname}" />
+                    <GridViewColumn Header="Nr" DisplayMemberBinding="{Binding Path=Current.ReservationsNr}" />
+                    <GridViewColumn Header="Kundennamen">
+                        <GridViewColumn.DisplayMemberBinding>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Current.Kunde.Vorname"/>
+                                <Binding Path="Current.Kunde.Nachname"/>
+                            </MultiBinding>
+                        </GridViewColumn.DisplayMemberBinding>
+                    </GridViewColumn>
                     <GridViewColumn Header="Von" DisplayMemberBinding="{Binding Path=Current.Von}" />
                     <GridViewColumn Header="Bis" DisplayMemberBinding="{Binding Path=Current.Bis}" />
-                    <GridViewColumn Header="Marke" DisplayMemberBinding="{Binding Path=Current.Auto.Marke}" />
+                    <GridViewColumn Header="Marke" DisplayMemberBinding="{Binding Path=Current.Auto.Marke}"/>
+                    <GridViewColumn Header="Klasse" DisplayMemberBinding="{Binding Path=Current.Auto.AutoKlasse}"/>
                 </gridViewSorter:GridViewSorter.Columns>
             </gridViewSorter:GridViewSorter>
             <StackPanel Orientation="Horizontal"
@@ -51,39 +59,58 @@
         <StackPanel Margin="8">
             <watermarkTextBox:WatermarkTextBox
                 Margin="10"
-                WatermarkContent="Reservationsnummer"
-                x:Name="WtbId" IsReadOnly="True"
+                WatermarkContent="Reservations Nummer"
+                x:Name="WtbNr" IsReadOnly="True"
                 Text="{Binding SelectedReservation.Current.ReservationsNr, UpdateSourceTrigger=PropertyChanged}" />
 
-            <watermarkTextBox:WatermarkTextBox
-                Margin="10"
-                WatermarkContent="Kunde"
-                x:Name="WtbMarke"
-                Text="{Binding SelectedReservation.Current.Kunde.Nachname, UpdateSourceTrigger=PropertyChanged}" />
-
+            <ComboBox Margin="10"
+                      ItemsSource="{Binding Kunden, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding SelectedReservation.Current.Kunde.Vorname, Mode=TwoWay}"
+                      SelectedValuePath="Current.Vorname">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="Current.Vorname" UpdateSourceTrigger="PropertyChanged"/>
+                                    <Binding Path="Current.Nachname" UpdateSourceTrigger="PropertyChanged"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+                
             <watermarkTextBox:WatermarkTextBox
                 Margin="10"
                 WatermarkContent="Von"
-                x:Name="WtbBasistarif"
+                x:Name="WtbVon"
                 Text="{Binding SelectedReservation.Current.Von, UpdateSourceTrigger=PropertyChanged}"
                 PreviewTextInput="Wtb_OnPreviewTextInput" />
 
             <watermarkTextBox:WatermarkTextBox
                 Margin="10"
                 WatermarkContent="Bis"
-                x:Name="WtbTagestarif"
+                x:Name="WtbBis"
                 Text="{Binding SelectedReservation.Current.Bis, UpdateSourceTrigger=PropertyChanged}"
                 PreviewTextInput="Wtb_OnPreviewTextInput" />
 
             <ComboBox Margin="10"
-                      ItemsSource="{Binding Source={logic:Enumeration {x:Type common:AutoKlasse}}}"
-                      DisplayMemberPath="Description"
-                      SelectedValue="{Binding SelectedReservation.Current.Auto.AutoKlasse}"
-                      SelectedValuePath="Value">
-                <!--
-                <ComboBoxItem Content="Standard"></ComboBoxItem>
-                <ComboBoxItem Content="Mittelklasse"></ComboBoxItem>
-                <ComboBoxItem Content="Luxusklasse"></ComboBoxItem> -->
+                      ItemsSource="{Binding Autos, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding SelectedReservation.Current.Auto.Marke, Mode=TwoWay}"
+                      SelectedValuePath="Current.Marke">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Margin="2">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Marke: {0}&#x09;Klasse: {1}">
+                                    <Binding Path="Current.Marke" UpdateSourceTrigger="PropertyChanged"/>
+                                    <Binding Path="Current.AutoKlasse" UpdateSourceTrigger="PropertyChanged"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
         </StackPanel>
     </DockPanel>

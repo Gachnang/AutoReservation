@@ -40,5 +40,12 @@ namespace AutoReservation.Common.DataTransferObjects
 
         //public override string ToString()
         //    => $"{Id}; {Nachname}; {Vorname}; {Geburtsdatum}; {RowVersion}";
+
+		public bool CompareTo(KundeDto other){
+			return this.Geburtsdatum.Equals(other.Geburtsdatum)
+				&& this.Id.Equals(other.Id)
+				&& this.Nachname.Equals(other.Nachname)
+				&& this.Vorname.Equals(other.Vorname);
+		}
     }
 }

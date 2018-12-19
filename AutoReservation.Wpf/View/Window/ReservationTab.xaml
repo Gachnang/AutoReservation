@@ -10,7 +10,7 @@
              xmlns:logic="clr-namespace:AutoReservation.Wpf.Logic"
              xmlns:control="clr-namespace:AutoReservation.Wpf.View.Control"
              mc:Ignorable="d"
-             d:DesignHeight="500" d:DesignWidth="800"
+             d:DesignHeight="500" d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance viewModel:ReservationTabModel, IsDesignTimeCreatable=True}">
     <DockPanel
         VerticalAlignment="Stretch"
@@ -65,6 +65,7 @@
 
             <ComboBox Margin="10"
                       ItemsSource="{Binding Kunden, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedKunde, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding SelectedReservation.Current.Kunde.Vorname, Mode=TwoWay}"
                       SelectedValuePath="Current.Vorname">
                 <ComboBox.ItemTemplate>
@@ -96,7 +97,8 @@
                 PreviewTextInput="Wtb_OnPreviewTextInput" />
 
             <ComboBox Margin="10"
-                      ItemsSource="{Binding Autos, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding AvailableAutos, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedAuto, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding SelectedReservation.Current.Auto.Marke, Mode=TwoWay}"
                       SelectedValuePath="Current.Marke">
                 <ComboBox.ItemTemplate>

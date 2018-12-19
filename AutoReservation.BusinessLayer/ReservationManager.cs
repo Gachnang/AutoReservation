@@ -122,10 +122,13 @@ namespace AutoReservation.BusinessLayer
 
 		private bool CarAvailable(AutoReservationContext context, Reservation reservation)
 		{
-			return !context.Reservationen
+            return !context.Reservationen
+                .Where(res => res.ReservationsNr != reservation.ReservationsNr)
 				.Where(res => res.AutoId == reservation.AutoId)
-				.Where(res => res.Von > reservation.Von && res.Von < reservation.Bis
-							|| res.Bis > reservation.Von && res.Bis < reservation.Bis).Any();
+				.Where(res => res.Von >= reservation.Von && res.Von < reservation.Bis && res.Bis >= reservation.Bis
+                            || res.Bis > reservation.Von && res.Bis <= reservation.Bis && res.Von <= reservation.Von
+                            || res.Von <= reservation.Von && res.Bis >= reservation.Bis
+                            || res.Von >= reservation.Von && res.Bis <= reservation.Bis).Any();
 		}
 	}
 }

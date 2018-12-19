@@ -173,8 +173,8 @@ namespace AutoReservation.Wpf.Model {
         {
             try
             {
-                reservation.AutoId = reservation.Auto.Id;
-                reservation.KundeId = reservation.Kunde.Id;
+                //reservation.AutoId = reservation.Auto.Id;
+                //reservation.KundeId = reservation.Kunde.Id;
                 reservation.ReservationsNr = target.AddReservation(reservation);
             }
             catch (Exception e)

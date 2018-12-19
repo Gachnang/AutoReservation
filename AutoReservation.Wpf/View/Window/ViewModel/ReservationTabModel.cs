@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
         private AutoReservationRepository Repository => _mainViewModel.Repository;
 
         private ChangeTracker<ReservationDto> _selectedReservation;
+        private ChangeTracker<AutoDto> _selectedAuto;
+        private ChangeTracker<KundeDto> _selectedKunde;
 
         public ReservationTabModel() {
             if ((bool) DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue) {
@@ -28,13 +31,14 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
 
         public ReservationTabModel(MainViewModel mainViewModel) {
             _mainViewModel = mainViewModel;
-            SelectedReservation = Repository.Reservationen.FirstOrDefault();
+            SelectedReservation = Reservationen.FirstOrDefault();
+            SelectedAuto = AvailableAutos.FirstOrDefault();
+            SelectedKunde = Kunden.FirstOrDefault();
         }
 
         public ObservableCollection<ChangeTracker<ReservationDto>> Reservationen => _mainViewModel.Repository?.Reservationen;
-        public ObservableCollection<ChangeTracker<AutoDto>> Autos => _mainViewModel.Repository?.Autos;
+        public ObservableCollection<ChangeTracker<AutoDto>> AvailableAutos => _mainViewModel.Repository?.Autos;
         public ObservableCollection<ChangeTracker<KundeDto>> Kunden => _mainViewModel.Repository?.Kunden;
-
 
         public ChangeTracker<ReservationDto> SelectedReservation {
             get => _selectedReservation;
@@ -44,11 +48,33 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
             }
         }
 
+        public ChangeTracker<AutoDto> SelectedAuto
+        {
+            get => _selectedAuto;
+            set
+            {
+                _selectedAuto = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ChangeTracker<KundeDto> SelectedKunde
+        {
+            get => _selectedKunde;
+            set
+            {
+                _selectedKunde = value;
+                OnPropertyChanged();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void Save() {
             //Repository.UpdateReservation(SelectedReservation);
             try {
+                SelectedReservation.Current.Auto = SelectedAuto.Current;
+                SelectedReservation.Current.Kunde = SelectedKunde.Current;
                 Repository.SaveReservationChanges();
             } catch (Exception e) {
                 StringBuilder sb = new StringBuilder("Message:");

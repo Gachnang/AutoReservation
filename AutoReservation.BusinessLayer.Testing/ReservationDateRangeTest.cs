@@ -13,14 +13,14 @@ namespace AutoReservation.BusinessLayer.Testing
         private ReservationManager Target => target ?? (target = new ReservationManager());
 
         [Fact]
-        public void ScenarioOkay01Test()
+        public void Exactly24hVonBisTest()
         {
             Reservation reservation = new Reservation
             {
                 AutoId = 1,
                 KundeId = 1,
-                Von = new DateTime(2020, 01, 10, 10, 00, 00),
-                Bis = new DateTime(2020, 01, 11, 10, 00, 00)
+                Von = new DateTime(2020, 02, 10, 10, 00, 00),
+                Bis = new DateTime(2020, 02, 11, 10, 00, 00)
             };
             Target.InsertReservation(reservation);
             int count = Target.ListOfReservationen.Count;
@@ -32,14 +32,14 @@ namespace AutoReservation.BusinessLayer.Testing
         }
 
         [Fact]
-        public void ScenarioOkay02Test()
+        public void SeveralDaysVonBisTest()
         {
             Reservation reservation = new Reservation
             {
                 AutoId = 1,
                 KundeId = 1,
-                Von = new DateTime(2020, 01, 10),
-                Bis = new DateTime(2020, 01, 20)
+                Von = new DateTime(2020, 02, 10),
+                Bis = new DateTime(2020, 02, 20)
             };
             Target.InsertReservation(reservation);
             int count = Target.ListOfReservationen.Count;
@@ -51,7 +51,7 @@ namespace AutoReservation.BusinessLayer.Testing
         }
 
         [Fact]
-        public void ScenarioNotOkay01Test()
+        public void VonAfterBisTest()
         {
             Reservation reservation = new Reservation
             {
@@ -64,7 +64,7 @@ namespace AutoReservation.BusinessLayer.Testing
         }
 
         [Fact]
-        public void ScenarioNotOkay02Test()
+        public void LessThan24hVonBisTest()
         {
             Reservation reservation = new Reservation
             {
@@ -77,14 +77,14 @@ namespace AutoReservation.BusinessLayer.Testing
         }
 
         [Fact]
-        public void ScenarioNotOkay03Test()
+        public void SameDateVonBisTest()
         {
             Reservation reservation = new Reservation
             {
                 AutoId = 1,
                 KundeId = 1,
                 Von = new DateTime(2020, 01, 10, 10, 00, 00),
-                Bis = new DateTime(2020, 01, 11, 09, 59, 00)
+                Bis = new DateTime(2020, 01, 10, 10, 00, 00)
             };
             Assert.Throws<InvalidDateRangeException>(() => Target.InsertReservation(reservation));
         }

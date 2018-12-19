@@ -28,10 +28,8 @@ namespace AutoReservation.Wpf.View.Window {
         private void BtnAdd_OnClick(object sender, RoutedEventArgs e) {
             ChangeTracker<ReservationDto> reservation = new ChangeTracker<ReservationDto>(new ReservationDto() {
                 ReservationsNr = 0,
-                Auto = null,
-                Kunde = null,
-                AutoId = 0,
-                KundeId = 0,
+                Auto = Model.SelectedAuto.Current,
+                Kunde = Model.SelectedKunde.Current,
                 Von = DateTime.Now,
                 Bis = DateTime.Now.AddHours(24)
             })

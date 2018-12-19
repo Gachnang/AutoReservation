@@ -7,5 +7,6 @@
         <ResourceDictionary Source="/View/Theme/System.Windows.ComboBox.xaml" />
         <ResourceDictionary Source="/View/Theme/System.Windows.ListBox.xaml" />
         <ResourceDictionary Source="/View/Theme/System.Windows.GridView.xaml" />
+        <ResourceDictionary Source="/View/Theme/System.Windows.TabItem.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -1,4 +1,5 @@
-﻿using AutoReservation.Wpf.View.Window.ViewModel;
+﻿using System.Windows.Controls;
+using AutoReservation.Wpf.View.Window.ViewModel;
 
 namespace AutoReservation.Wpf.View.Window {
     /// <summary>
@@ -12,6 +13,13 @@ namespace AutoReservation.Wpf.View.Window {
 
             Model = new MainViewModel();
             DataContext = Model;
+        }
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (((TabControl)sender).SelectedItem == null)
+            {
+                ((TabControl)sender).SelectedItem = e.RemovedItems[0];
+            }
         }
     }
 }

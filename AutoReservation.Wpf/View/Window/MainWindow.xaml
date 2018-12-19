@@ -8,13 +8,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         d:DataContext="{d:DesignInstance model:MainViewModel, IsDesignTimeCreatable=True}">
-	<TabControl
+    <TabControl
+        x:Name="Navigation"
         Margin="2 0 0 0"
         HorizontalAlignment="Stretch"
         TabStripPlacement="Left"
-        VerticalAlignment="Stretch">
-
-		<TabItem Header="Autos">
+        VerticalAlignment="Stretch"
+        SelectionChanged="Selector_OnSelectionChanged">
+        <TabItem Header="Autos">
             <window:AutoTab DataContext="{Binding Path=AutoTabModel, UpdateSourceTrigger=PropertyChanged}" />
         </TabItem>
 		<TabItem Header="Kunden">

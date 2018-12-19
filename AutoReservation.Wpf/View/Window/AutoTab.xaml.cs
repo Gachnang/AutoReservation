@@ -26,7 +26,6 @@ namespace AutoReservation.Wpf.View.Window {
 
         private void BtnAdd_OnClick(object sender, RoutedEventArgs e) {
             ChangeTracker<AutoDto> auto = new ChangeTracker<AutoDto>(new AutoDto() {
-                Id = 0,
                 Marke = "NEW"
             })
             { 
@@ -40,6 +39,7 @@ namespace AutoReservation.Wpf.View.Window {
 
         private void BtnDel_OnClick(object sender, RoutedEventArgs e) {
             Model.SelectedAuto.IsDeleted = !Model.SelectedAuto.IsDeleted;
+			Model.SelectedAuto.IsDirty = true;
         }
     }
 }

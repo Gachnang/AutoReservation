@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -27,6 +28,7 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
 
         public ReservationTabModel(MainViewModel mainViewModel) {
             _mainViewModel = mainViewModel;
+            SelectedReservation = Repository.Reservationen.FirstOrDefault();
         }
 
         public ObservableCollection<ChangeTracker<ReservationDto>> Reservationen => _mainViewModel.Repository?.Reservationen;

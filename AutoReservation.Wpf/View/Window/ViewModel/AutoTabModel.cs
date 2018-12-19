@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -28,6 +29,7 @@ namespace AutoReservation.Wpf.View.Window.ViewModel {
 
         public AutoTabModel(MainViewModel mainViewModel) {
             _mainViewModel = mainViewModel;
+            SelectedAuto = Repository.Autos.FirstOrDefault();
         }
 
         public ObservableCollection<ChangeTracker<AutoDto>> Autos => _mainViewModel.Repository?.Autos;

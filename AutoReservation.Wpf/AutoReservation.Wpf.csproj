@@ -94,9 +94,6 @@
     <Compile Include="View\Window\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Window\OverviewTap.xaml.cs">
-      <DependentUpon>OverviewTap.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Window\CustomerTab.xaml.cs">
       <DependentUpon>CustomerTab.xaml</DependentUpon>
     </Compile>
@@ -213,10 +210,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Window\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Window\OverviewTap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

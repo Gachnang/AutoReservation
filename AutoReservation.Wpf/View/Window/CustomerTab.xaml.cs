@@ -33,8 +33,7 @@ namespace AutoReservation.Wpf.View.Window
 		{
 			ChangeTracker<KundeDto> kunde = new ChangeTracker<KundeDto>(new KundeDto()
 			{
-				Id = -1,
-				Nachname = "Bob"
+				Nachname = "B.O.B"
 			})
 			{
 				IsDirty = true,
@@ -48,6 +47,7 @@ namespace AutoReservation.Wpf.View.Window
 		private void BtnDel_OnClick(object sender, RoutedEventArgs e)
 		{
 			Model.SelectedKunde.IsDeleted = !Model.SelectedKunde.IsDeleted;
+			Model.SelectedKunde.IsDirty = true;
 		}
 	}
 }

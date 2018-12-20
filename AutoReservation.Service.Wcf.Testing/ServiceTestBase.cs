@@ -292,13 +292,54 @@ namespace AutoReservation.Service.Wcf.Testing
         [Fact]
         public void CheckAvailabilityIsTrueTest()
         {
-            throw new NotImplementedException("Test not implemented.");
+            ReservationDto reservation1 = new ReservationDto
+            {
+                AutoId = 4,
+                KundeId = 4,
+                Von = new DateTime(2020, 01, 10),
+                Bis = new DateTime(2020, 01, 20)
+            };
+            reservation1.Auto = Target.GetCar(reservation1.AutoId);
+            reservation1.Kunde = Target.GetCustomer(reservation1.KundeId);
+            ReservationDto reservation2 = new ReservationDto
+            {
+                AutoId = 4,
+                KundeId = 4,
+                Von = new DateTime(2020, 01, 20),
+                Bis = new DateTime(2020, 01, 30)
+            };
+            reservation2.Auto = Target.GetCar(reservation2.AutoId);
+            reservation2.Kunde = Target.GetCustomer(reservation2.KundeId);
+            Target.AddReservation(reservation1);
+            Target.AddReservation(reservation2);
+            ReservationDto reservation1Dto = Target.GetReservation(5);
+            ReservationDto reservation2Dto = Target.GetReservation(6);
+            Assert.Equal(reservation1Dto.AutoId, reservation2Dto.AutoId);
         }
 
         [Fact]
         public void CheckAvailabilityIsFalseTest()
         {
-            throw new NotImplementedException("Test not implemented.");
+            ReservationDto reservation1 = new ReservationDto
+            {
+                AutoId = 4,
+                KundeId = 4,
+                Von = new DateTime(2020, 01, 10),
+                Bis = new DateTime(2020, 01, 20)
+            };
+            reservation1.Auto = Target.GetCar(reservation1.AutoId);
+            reservation1.Kunde = Target.GetCustomer(reservation1.KundeId);
+            ReservationDto reservation2 = new ReservationDto
+            {
+                AutoId = 4,
+                KundeId = 4,
+                Von = new DateTime(2020, 01, 10),
+                Bis = new DateTime(2020, 01, 30)
+            };
+            reservation2.Auto = Target.GetCar(reservation2.AutoId);
+            reservation2.Kunde = Target.GetCustomer(reservation2.KundeId);
+            Target.AddReservation(reservation1);
+            Assert.Throws<AutoUnavailableException>(() => Target.AddReservation(reservation2));
         }
 
         #endregion

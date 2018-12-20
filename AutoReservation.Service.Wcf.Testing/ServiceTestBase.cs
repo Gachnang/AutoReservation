@@ -254,20 +254,30 @@ namespace AutoReservation.Service.Wcf.Testing
         [Fact]
         public void InsertReservationWithInvalidDateRangeTest()
         {
-            
-        }
+			ReservationDto reservation = new ReservationDto { AutoId = 4, KundeId = 4, Von = new DateTime(2020, 01, 10), Bis = new DateTime(1020, 01, 20) };
+			reservation.Auto = Target.GetCar(reservation.AutoId);
+			reservation.Kunde = Target.GetCustomer(reservation.KundeId);
+			Assert.Throws<InvalidDateRangeException>(() => Target.AddReservation(reservation));
+		}
 
         [Fact]
         public void InsertReservationWithAutoNotAvailableTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			ReservationDto reservation = new ReservationDto { ReservationsNr = 3, AutoId = 3, KundeId = 3, Von = new DateTime(2020, 01, 12), Bis = new DateTime(2020, 01, 18) };
+			reservation.Auto = Target.GetCar(reservation.AutoId);
+			reservation.Kunde = Target.GetCustomer(reservation.KundeId);
+			Assert.Throws<AutoUnavailableException>(() => Target.AddReservation(reservation));
+		}
 
         [Fact]
         public void UpdateReservationWithInvalidDateRangeTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-        }
+			ReservationDto reservation = Target.GetReservation(3);
+			reservation.Von = reservation.Bis.AddDays(1);
+			reservation.Auto = Target.GetCar(reservation.AutoId);
+			reservation.Kunde = Target.GetCustomer(reservation.KundeId);
+			Assert.Throws<InvalidDateRangeException>(() => Target.UpdateReservation(reservation));
+		}
 
         [Fact]
         public void UpdateReservationWithAutoNotAvailableTest()
